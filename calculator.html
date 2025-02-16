@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM Monthly Report Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #e3f2fd;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background: #0288d1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0277bd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>MDM Monthly Report Calculator</h2>
+        <form id="mdmForm">
+            <label for="year">Select Year:</label>
+            <select id="year"> 
+                <option>2025</option>
+                <option>2026</option>
+                <option>2027</option>
+                <option>2028</option>
+                <option>2029</option>
+                <option>2030</option>
+            </select>
+            
+            <label for="month">Select Month:</label>
+            <select id="month">
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+            </select>
+            
+            <label for="reportType">Select Report Type:</label>
+            <select id="reportType">
+                <option>Pre-Primary MDM Report</option>
+                <option>Primary MDM Report</option>
+            </select>
+            
+            <label for="dateTime">Current Date and Time:</label>
+            <input type="text" id="dateTime" readonly>
+            
+            <label for="schoolName">School Name:</label>
+            <input type="text" id="schoolName" required>
+            
+            <label for="udise">School UDISE Code:</label>
+            <input type="text" id="udise" required>
+            
+            <label for="cookingCost">Price/Rate of Cooking Cost per Student (Rs):</label>
+            <input type="number" id="cookingCost" required>
+            
+            <label for="totalStudents">Total Students:</label>
+            <input type="number" id="totalStudents" required>
+            
+            <label for="wheatDays">Number of Days Wheat Served:</label>
+            <input type="number" id="wheatDays" required>
+            
+            <label for="riceDays">Number of Days Rice Served:</label>
+            <input type="number" id="riceDays" required>
+            
+            <label for="totalMdmDays">Total Number of Days MDM Served:</label>
+            <input type="number" id="totalMdmDays" readonly>
+            
+            <label for="studentsWheat">Total Students Served Wheat:</label>
+            <input type="number" id="studentsWheat" required>
+            
+            <label for="studentsRice">Total Students Served Rice:</label>
+            <input type="number" id="studentsRice" required>
+            
+            <label for="studentsBenefited">Total Students Benefited:</label>
+            <input type="number" id="studentsBenefited" readonly>
+            
+            <label for="wheatOpening">Opening Balance of Wheat:</label>
+            <input type="number" id="wheatOpening" required>
+            
+            <label for="wheatReceived">New Stock of Wheat Received:</label>
+            <input type="number" id="wheatReceived" required>
+            
+            <label for="wheatConsumed">Wheat Consumed in Month:</label>
+            <input type="number" id="wheatConsumed" readonly>
+            
+            <label for="wheatClosing">Closing Balance of Wheat:</label>
+            <input type="number" id="wheatClosing" readonly>
+            
+            <label for="riceOpening">Opening Balance of Rice:</label>
+            <input type="number" id="riceOpening" required>
+            
+            <label for="riceReceived">New Stock of Rice Received:</label>
+            <input type="number" id="riceReceived" required>
+            
+            <label for="riceConsumed">Rice Consumed in Month:</label>
+            <input type="number" id="riceConsumed" readonly>
+            
+            <label for="riceClosing">Closing Balance of Rice:</label>
+            <input type="number" id="riceClosing" readonly>
+            
+            <label for="cookingOpening">Opening Balance of Cooking-Cost:</label>
+            <input type="number" id="cookingOpening" required>
+            
+            <label for="cookingReceived">Cooking-Cost Received:</label>
+            <input type="number" id="cookingReceived" required>
+            
+            <label for="cookingSpent">Cooking-Cost Spent in Month:</label>
+            <input type="number" id="cookingSpent" readonly>
+            
+            <label for="cookingClosing">Closing Balance of Cooking-Cost:</label>
+            <input type="number" id="cookingClosing" readonly>
+            
+            <label for="fruitOpening">Opening Balance of Fruit:</label>
+            <input type="number" id="fruitOpening" required>
+            
+            <label for="fruitReceived">Amount Received:</label>
+            <input type="number" id="fruitReceived" required>
+            
+            <label for="studentsFruit">Number of Students Given Fruit in Month:</label>
+            <input type="number" id="studentsFruit" required>
+            
+            <label for="fruitSpent">Amount Spent in Month:</label>
+            <input type="number" id="fruitSpent" readonly>
+            
+            <label for="fruitClosing">Closing Balance of Fruit:</label>
+            <input type="number" id="fruitClosing" readonly>
+            
+            <button type="button" onclick="calculateFields()">Calculate</button>
+            <button type="button" onclick="submitData()">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
