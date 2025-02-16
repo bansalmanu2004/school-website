@@ -4,213 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MDM Monthly Report Calculator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #e3f2fd;
+    <script>
+        function updateCalculations() {
+            let daysWheat = parseFloat(document.getElementById('daysWheat').value) || 0;
+            let daysRice = parseFloat(document.getElementById('daysRice').value) || 0;
+            document.getElementById('totalDaysMDM').value = daysWheat + daysRice;
+
+            let studentsWheat = parseFloat(document.getElementById('studentsWheat').value) || 0;
+            let studentsRice = parseFloat(document.getElementById('studentsRice').value) || 0;
+            let totalBenefited = studentsWheat + studentsRice;
+            document.getElementById('totalBenefited').value = totalBenefited;
+
+            document.getElementById('wheatConsumed').value = (studentsWheat * 0.1).toFixed(2);
+            document.getElementById('riceConsumed').value = (studentsRice * 0.1).toFixed(2);
+
+            let openingWheat = parseFloat(document.getElementById('openingWheat').value) || 0;
+            let newWheat = parseFloat(document.getElementById('newWheat').value) || 0;
+            let wheatConsumed = parseFloat(document.getElementById('wheatConsumed').value) || 0;
+            document.getElementById('closingWheat').value = (openingWheat + newWheat - wheatConsumed).toFixed(2);
+
+            let openingRice = parseFloat(document.getElementById('openingRice').value) || 0;
+            let newRice = parseFloat(document.getElementById('newRice').value) || 0;
+            let riceConsumed = parseFloat(document.getElementById('riceConsumed').value) || 0;
+            document.getElementById('closingRice').value = (openingRice + newRice - riceConsumed).toFixed(2);
+
+            let priceCookingCost = parseFloat(document.getElementById('priceCookingCost').value) || 0;
+            document.getElementById('cookingCostSpent').value = (totalBenefited * priceCookingCost).toFixed(2);
+
+            let openingCookingCost = parseFloat(document.getElementById('openingCookingCost').value) || 0;
+            let receivedCookingCost = parseFloat(document.getElementById('receivedCookingCost').value) || 0;
+            let cookingCostSpent = parseFloat(document.getElementById('cookingCostSpent').value) || 0;
+            document.getElementById('closingCookingCost').value = (openingCookingCost + receivedCookingCost - cookingCostSpent).toFixed(2);
+
+            let studentsGivenFruit = parseFloat(document.getElementById('studentsGivenFruit').value) || 0;
+            document.getElementById('amountSpentFruit').value = (studentsGivenFruit * 5).toFixed(2);
+
+            let openingFruit = parseFloat(document.getElementById('openingFruit').value) || 0;
+            let receivedFruit = parseFloat(document.getElementById('receivedFruit').value) || 0;
+            let amountSpentFruit = parseFloat(document.getElementById('amountSpentFruit').value) || 0;
+            document.getElementById('closingFruit').value = (openingFruit + receivedFruit - amountSpentFruit).toFixed(2);
         }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            margin-top: 15px;
-            padding: 10px;
-            background: #0288d1;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0277bd;
-        }
-    </style>
+    </script>
 </head>
 <body>
-    <div class="container">
-        <h2>MDM Monthly Report Calculator</h2>
-        <form id="mdmForm">
-            <label for="year">Select Year:</label>
-            <select id="year"> 
-                <option>2025</option>
-                <option>2026</option>
-                <option>2027</option>
-                <option>2028</option>
-                <option>2029</option>
-                <option>2030</option>
-            </select>
-            
-            <label for="month">Select Month:</label>
-            <select id="month">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
-            </select>
-            
-            <label for="reportType">Select Report Type:</label>
-            <select id="reportType">
-                <option>Pre-Primary MDM Report</option>
-                <option>Primary MDM Report</option>
-            </select>
-            
-            <label for="dateTime">Current Date and Time:</label>
-            <input type="text" id="dateTime" readonly>
-            
-            <label for="schoolName">School Name:</label>
-            <input type="text" id="schoolName" required>
-            
-            <label for="udise">School UDISE Code:</label>
-            <input type="text" id="udise" required>
-            
-            <label for="cookingCost">Price/Rate of Cooking Cost per Student (Rs):</label>
-            <input type="number" id="cookingCost" required>
-            
-            <label for="totalStudents">Total Students:</label>
-            <input type="number" id="totalStudents" required>
-            
-            <label for="wheatDays">Number of Days Wheat Served:</label>
-            <input type="number" id="wheatDays" required>
-            
-            <label for="riceDays">Number of Days Rice Served:</label>
-            <input type="number" id="riceDays" required>
-            
-            <label for="totalMdmDays">Total Number of Days MDM Served:</label>
-            <input type="number" id="totalMdmDays" readonly>
-            
-            <label for="studentsWheat">Total Students Served Wheat:</label>
-            <input type="number" id="studentsWheat" required>
-            
-            <label for="studentsRice">Total Students Served Rice:</label>
-            <input type="number" id="studentsRice" required>
-            
-            <label for="studentsBenefited">Total Students Benefited:</label>
-            <input type="number" id="studentsBenefited" readonly>
-            
-            <label for="wheatOpening">Opening Balance of Wheat:</label>
-            <input type="number" id="wheatOpening" required>
-            
-            <label for="wheatReceived">New Stock of Wheat Received:</label>
-            <input type="number" id="wheatReceived" required>
-            
-            <label for="wheatConsumed">Wheat Consumed in Month:</label>
-            <input type="number" id="wheatConsumed" readonly>
-            
-            <label for="wheatClosing">Closing Balance of Wheat:</label>
-            <input type="number" id="wheatClosing" readonly>
-            
-            <label for="riceOpening">Opening Balance of Rice:</label>
-            <input type="number" id="riceOpening" required>
-            
-            <label for="riceReceived">New Stock of Rice Received:</label>
-            <input type="number" id="riceReceived" required>
-            
-            <label for="riceConsumed">Rice Consumed in Month:</label>
-            <input type="number" id="riceConsumed" readonly>
-            
-            <label for="riceClosing">Closing Balance of Rice:</label>
-            <input type="number" id="riceClosing" readonly>
-            
-            <label for="cookingOpening">Opening Balance of Cooking-Cost:</label>
-            <input type="number" id="cookingOpening" required>
-            
-            <label for="cookingReceived">Cooking-Cost Received:</label>
-            <input type="number" id="cookingReceived" required>
-            
-            <label for="cookingSpent">Cooking-Cost Spent in Month:</label>
-            <input type="number" id="cookingSpent" readonly>
-            
-            <label for="cookingClosing">Closing Balance of Cooking-Cost:</label>
-            <input type="number" id="cookingClosing" readonly>
-            
-            <label for="fruitOpening">Opening Balance of Fruit:</label>
-            <input type="number" id="fruitOpening" required>
-            
-            <label for="fruitReceived">Amount Received:</label>
-            <input type="number" id="fruitReceived" required>
-            
-            <label for="studentsFruit">Number of Students Given Fruit in Month:</label>
-            <input type="number" id="studentsFruit" required>
-            
-            <label for="fruitSpent">Amount Spent in Month:</label>
-            <input type="number" id="fruitSpent" readonly>
-            
-            <label for="fruitClosing">Closing Balance of Fruit:</label>
-            <input type="number" id="fruitClosing" readonly>
-            
-            <button type="button" onclick="calculateFields()">Calculate</button>
-            <button type="button" onclick="submitData()">Submit</button>
-        </form>
-    </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Automatically capture current date & time
-        document.getElementById("dateTime").value = new Date().toLocaleString();
+    <h2>MDM Monthly Report Calculator</h2>
+    <form>
+        <h3>Wheat Details</h3>
+        <label>Opening Balance of Wheat:</label>
+        <input type="number" id="openingWheat" oninput="updateCalculations()"><br>
+        <label>New Stock of Wheat Received:</label>
+        <input type="number" id="newWheat" oninput="updateCalculations()"><br>
+        <label>Wheat Consumed in Month:</label>
+        <input type="number" id="wheatConsumed" readonly><br>
+        <label>Closing Balance of Wheat:</label>
+        <input type="number" id="closingWheat" readonly><br>
 
-        // Function to update calculated fields
-        function calculateFields() {
-            // Get input values
-            let wheatDays = parseInt(document.getElementById("wheatDays").value) || 0;
-            let riceDays = parseInt(document.getElementById("riceDays").value) || 0;
-            let studentsWheat = parseInt(document.getElementById("studentsWheat").value) || 0;
-            let studentsRice = parseInt(document.getElementById("studentsRice").value) || 0;
-            let cookingCostRate = parseFloat(document.getElementById("cookingCost").value) || 0;
-            let openingWheat = parseFloat(document.getElementById("wheatOpening").value) || 0;
-            let newWheatStock = parseFloat(document.getElementById("wheatReceived").value) || 0;
-            let openingRice = parseFloat(document.getElementById("riceOpening").value) || 0;
-            let newRiceStock = parseFloat(document.getElementById("riceReceived").value) || 0;
-            let openingCookingCost = parseFloat(document.getElementById("cookingOpening").value) || 0;
-            let receivedCookingCost = parseFloat(document.getElementById("cookingReceived").value) || 0;
-            let studentsFruit = parseInt(document.getElementById("studentsFruit").value) || 0;
-            let openingFruit = parseFloat(document.getElementById("fruitOpening").value) || 0;
-            let receivedFruit = parseFloat(document.getElementById("fruitReceived").value) || 0;
+        <h3>Rice Details</h3>
+        <label>Opening Balance of Rice:</label>
+        <input type="number" id="openingRice" oninput="updateCalculations()"><br>
+        <label>New Stock of Rice Received:</label>
+        <input type="number" id="newRice" oninput="updateCalculations()"><br>
+        <label>Rice Consumed in Month:</label>
+        <input type="number" id="riceConsumed" readonly><br>
+        <label>Closing Balance of Rice:</label>
+        <input type="number" id="closingRice" readonly><br>
 
-            // Perform calculations
-            document.getElementById("totalMdmDays").value = wheatDays + riceDays;
-            document.getElementById("studentsBenefited").value = studentsWheat + studentsRice;
-            document.getElementById("wheatConsumed").value = studentsWheat * 0.1;
-            document.getElementById("wheatClosing").value = openingWheat + newWheatStock - (studentsWheat * 0.1);
-            document.getElementById("riceConsumed").value = studentsRice * 0.1;
-            document.getElementById("riceClosing").value = openingRice + newRiceStock - (studentsRice * 0.1);
-            document.getElementById("cookingSpent").value = (studentsWheat + studentsRice) * cookingCostRate;
-            document.getElementById("cookingClosing").value = openingCookingCost + receivedCookingCost - ((studentsWheat + studentsRice) * cookingCostRate);
-            document.getElementById("fruitSpent").value = studentsFruit * 5;
-            document.getElementById("fruitClosing").value = openingFruit + receivedFruit - (studentsFruit * 5);
-        }
+        <h3>Cooking Cost</h3>
+        <label>Opening Balance of Cooking-Cost:</label>
+        <input type="number" id="openingCookingCost" oninput="updateCalculations()"><br>
+        <label>Cooking-Cost Received:</label>
+        <input type="number" id="receivedCookingCost" oninput="updateCalculations()"><br>
+        <label>Cooking-Cost Spent in Month:</label>
+        <input type="number" id="cookingCostSpent" readonly><br>
+        <label>Closing Balance of Cooking-Cost:</label>
+        <input type="number" id="closingCookingCost" readonly><br>
 
-        // Add event listeners to auto-update calculations
-        document.querySelectorAll("input").forEach(input => {
-            input.addEventListener("input", calculateFields);
-        });
-    });
-</script>
-
+        <h3>Fruit Details</h3>
+        <label>Opening Balance of Fruit:</label>
+        <input type="number" id="openingFruit" oninput="updateCalculations()"><br>
+        <label>Amount Received:</label>
+        <input type="number" id="receivedFruit" oninput="updateCalculations()"><br>
+        <label>Number of Students Given Fruit in Month:</label>
+        <input type="number" id="studentsGivenFruit" oninput="updateCalculations()"><br>
+        <label>Amount Spent in Month:</label>
+        <input type="number" id="amountSpentFruit" readonly><br>
+        <label>Closing Balance of Fruit:</label>
+        <input type="number" id="closingFruit" readonly><br>
+    </form>
 </body>
 </html>
