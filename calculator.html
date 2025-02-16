@@ -228,11 +228,12 @@
 <div class="container">
     <h2>MDM Monthly Report - Part 3</h2>
 
+    <!-- Rice Stock Section -->
     <label for="openingRice">Opening Balance of Rice (kg):</label>
     <input type="number" id="openingRice" step="0.01">
 
-    <label for="newStockRice">New Stock of Rice Received (kg):</label>
-    <input type="number" id="newStockRice" step="0.01">
+    <label for="newRice">New Stock of Rice Received (kg):</label>
+    <input type="number" id="newRice" step="0.01">
 
     <label for="riceConsumed">Rice Consumed in Month (kg):</label>
     <input type="number" id="riceConsumed" readonly>
@@ -240,61 +241,61 @@
     <label for="closingRice">Closing Balance of Rice (kg):</label>
     <input type="number" id="closingRice" readonly>
 
-    <label for="openingCookingCost">Opening Balance of Cooking Cost (₹):</label>
+    <!-- Cooking Cost Section -->
+    <label for="openingCookingCost">Opening Balance of Cooking-Cost (₹):</label>
     <input type="number" id="openingCookingCost" step="0.01">
 
-    <label for="cookingCostReceived">Cooking Cost Received (₹):</label>
+    <label for="cookingCostReceived">Cooking-Cost Received (₹):</label>
     <input type="number" id="cookingCostReceived" step="0.01">
 
-    <label for="cookingCostSpent">Cooking Cost Spent in Month (₹):</label>
+    <label for="cookingCostSpent">Cooking-Cost Spent in Month (₹):</label>
     <input type="number" id="cookingCostSpent" readonly>
 
-    <label for="closingCookingCost">Closing Balance of Cooking Cost (₹):</label>
+    <label for="closingCookingCost">Closing Balance of Cooking-Cost (₹):</label>
     <input type="number" id="closingCookingCost" readonly>
 </div>
 
 <script>
     // Auto-calculate Rice Consumed in Month
-    document.getElementById("studentsRice").addEventListener("input", calculateRiceConsumed);
-
-    function calculateRiceConsumed() {
-        let studentsRice = parseInt(document.getElementById("studentsRice").value) || 0;
-        document.getElementById("riceConsumed").value = (studentsRice * 0.1).toFixed(2);
+    function calculateRiceConsumption() {
+        let totalStudentsRice = parseFloat(document.getElementById("studentsServedRice").value) || 0;
+        document.getElementById("riceConsumed").value = (totalStudentsRice * 0.1).toFixed(2);
+        calculateClosingRice();
     }
 
     // Auto-calculate Closing Balance of Rice
-    document.getElementById("newStockRice").addEventListener("input", calculateClosingRice);
-    document.getElementById("riceConsumed").addEventListener("input", calculateClosingRice);
-    document.getElementById("openingRice").addEventListener("input", calculateClosingRice);
-
     function calculateClosingRice() {
         let openingRice = parseFloat(document.getElementById("openingRice").value) || 0;
-        let newStockRice = parseFloat(document.getElementById("newStockRice").value) || 0;
+        let newRice = parseFloat(document.getElementById("newRice").value) || 0;
         let riceConsumed = parseFloat(document.getElementById("riceConsumed").value) || 0;
-        document.getElementById("closingRice").value = (openingRice + newStockRice - riceConsumed).toFixed(2);
+        document.getElementById("closingRice").value = (openingRice + newRice - riceConsumed).toFixed(2);
     }
 
-    // Auto-calculate Cooking Cost Spent in Month
-    document.getElementById("totalBenefited").addEventListener("input", calculateCookingCostSpent);
-    document.getElementById("pricePerStudent").addEventListener("input", calculateCookingCostSpent);
-
+    // Auto-calculate Cooking Cost Spent
     function calculateCookingCostSpent() {
-        let totalBenefited = parseInt(document.getElementById("totalBenefited").value) || 0;
-        let pricePerStudent = parseFloat(document.getElementById("pricePerStudent").value) || 0;
-        document.getElementById("cookingCostSpent").value = (totalBenefited * pricePerStudent).toFixed(2);
+        let totalStudentsBenefited = parseFloat(document.getElementById("totalStudentsBenefited").value) || 0;
+        let cookingCostPerStudent = parseFloat(document.getElementById("cookingCostRate").value) || 0;
+        document.getElementById("cookingCostSpent").value = (totalStudentsBenefited * cookingCostPerStudent).toFixed(2);
+        calculateClosingCookingCost();
     }
 
-    // Auto-calculate Closing Balance of Cooking Cost
-    document.getElementById("cookingCostReceived").addEventListener("input", calculateClosingCookingCost);
-    document.getElementById("cookingCostSpent").addEventListener("input", calculateClosingCookingCost);
-    document.getElementById("openingCookingCost").addEventListener("input", calculateClosingCookingCost);
-
+    // Auto-calculate Closing Balance of Cooking-Cost
     function calculateClosingCookingCost() {
         let openingCookingCost = parseFloat(document.getElementById("openingCookingCost").value) || 0;
         let cookingCostReceived = parseFloat(document.getElementById("cookingCostReceived").value) || 0;
         let cookingCostSpent = parseFloat(document.getElementById("cookingCostSpent").value) || 0;
         document.getElementById("closingCookingCost").value = (openingCookingCost + cookingCostReceived - cookingCostSpent).toFixed(2);
     }
+
+    // Event Listeners for automatic calculations
+    document.getElementById("studentsServedRice").addEventListener("input", calculateRiceConsumption);
+    document.getElementById("openingRice").addEventListener("input", calculateClosingRice);
+    document.getElementById("newRice").addEventListener("input", calculateClosingRice);
+
+    document.getElementById("totalStudentsBenefited").addEventListener("input", calculateCookingCostSpent);
+    document.getElementById("cookingCostRate").addEventListener("input", calculateCookingCostSpent);
+    document.getElementById("openingCookingCost").addEventListener("input", calculateClosingCookingCost);
+    document.getElementById("cookingCostReceived").addEventListener("input", calculateClosingCookingCost);
 </script>
 <div class="container">
     <h2>MDM Monthly Report - Part 4</h2>
