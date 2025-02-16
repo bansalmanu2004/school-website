@@ -16,19 +16,16 @@
             padding: 15px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             color: white;
             font-weight: bold;
             font-size: 18px;
         }
-        .nav-links {
-            display: flex;
-            gap: 15px;
+        .blinking {
+            animation: blink 1s infinite alternate;
         }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0; }
         }
         .container {
             max-width: 800px;
@@ -50,8 +47,12 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
         button {
-            margin-top: 15px;
             padding: 10px;
             background: #0288d1;
             color: white;
@@ -62,23 +63,22 @@
         button:hover {
             background: #0277bd;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <span>GPS Shahkot Boys</span>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="admissions.html">Admissions</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="calculator.html">Calculator</a>
-        </div>
+        <span class="blinking">School Name</span>
+        <span class="blinking">Manoj Bansal - 9888666363</span>
     </div>
 
     <div class="container">
         <h2>MDM Monthly Report Calculator</h2>
-        <form id="mdmForm">
+        
+        <!-- Step 1 -->
+        <div id="step1">
             <label for="year">Select Year:</label>
             <select id="year"> 
                 <option>2025</option>
@@ -125,18 +125,64 @@
             
             <label for="totalStudents">Total Students:</label>
             <input type="number" id="totalStudents" required>
+
+            <div class="button-container">
+                <button type="button" onclick="nextStep(1)">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step2" class="hidden">
+            <label for="daysWheat">Number of Days Wheat Served:</label>
+            <input type="number" id="daysWheat" required>
             
-            <button type="button" onclick="nextStep()">Next</button>
-        </form>
+            <label for="daysRice">Number of Days Rice Served:</label>
+            <input type="number" id="daysRice" required>
+            
+            <label for="mdmDays">Total Number of Days MDM Served:</label>
+            <input type="number" id="mdmDays" readonly>
+            
+            <label for="studentsWheat">Total Students Served Wheat in Month:</label>
+            <input type="number" id="studentsWheat" required>
+            
+            <label for="studentsRice">Total Students Served Rice in Month:</label>
+            <input type="number" id="studentsRice" required>
+            
+            <label for="studentsBenefited">Total Students Benefited:</label>
+            <input type="number" id="studentsBenefited" readonly>
+            
+            <label for="wheatOpening">Opening Balance of Wheat:</label>
+            <input type="number" id="wheatOpening" required>
+            
+            <label for="wheatReceived">New Stock of Wheat Received:</label>
+            <input type="number" id="wheatReceived" required>
+            
+            <label for="wheatConsumed">Wheat Consumed in Month:</label>
+            <input type="number" id="wheatConsumed" readonly>
+            
+            <label for="wheatClosing">Closing Balance of Wheat:</label>
+            <input type="number" id="wheatClosing" readonly>
+            
+            <div class="button-container">
+                <button type="button" onclick="prevStep(2)">Previous</button>
+                <button type="button" onclick="nextStep(2)">Next</button>
+            </div>
+        </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("dateTime").value = new Date().toLocaleString();
         });
-        
-        function nextStep() {
-            alert("Proceeding to the next step...");
+
+        function nextStep(step) {
+            document.getElementById("step" + step).classList.add("hidden");
+            document.getElementById("step" + (step + 1)).classList.remove("hidden");
+        }
+
+        function prevStep(step) {
+            document.getElementById("step" + step).classList.add("hidden");
+            document.getElementById("step" + (step - 1)).classList.remove("hidden");
         }
     </script>
 </body>
