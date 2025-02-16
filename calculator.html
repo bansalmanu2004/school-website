@@ -155,74 +155,79 @@
         document.getElementById("closingRice").value = (openingRice + newRice - riceConsumed).toFixed(2);
     }
 </script>
-<div class="container">
-    <h2>Cooking Cost Details</h2>
+<!-- Cooking-Cost Details -->
+<h2>Cooking-Cost Details</h2>
 
-    <label>Opening Balance of Cooking-Cost (₹):</label>
-    <input type="number" id="openingCookingCost">
+<label>Opening Balance of Cooking-Cost (₹):</label>
+<input type="number" id="openingBalanceCooking" step="0.01" required>
 
-    <label>Cooking-Cost Received (₹):</label>
-    <input type="number" id="cookingCostReceived">
+<label>Cooking-Cost Received (₹):</label>
+<input type="number" id="cookingCostReceived" step="0.01" required>
 
-    <label>Cooking-Cost Spent in Month (₹):</label>
-    <input type="number" id="cookingCostSpent" readonly>
+<label>Cooking-Cost Spent in Month (₹):</label>
+<input type="text" id="cookingCostSpent" readonly>
 
-    <label>Closing Balance of Cooking-Cost (₹):</label>
-    <input type="number" id="closingCookingCost" readonly>
+<label>Closing Balance of Cooking-Cost (₹):</label>
+<input type="text" id="closingBalanceCooking" readonly>
 
-    <h2>Fruit Distribution Details</h2>
+<hr>
 
-    <label>Opening Balance of Fruit (₹):</label>
-    <input type="number" id="openingFruit">
+<!-- Fruit Details -->
+<h2>Fruit Details</h2>
 
-    <label>Amount Received for Fruit (₹):</label>
-    <input type="number" id="fruitReceived">
+<label>Opening Balance of Fruit (₹):</label>
+<input type="number" id="openingBalanceFruit" step="0.01" required>
 
-    <label>Number of Students Given Fruit in Month:</label>
-    <input type="number" id="studentsGivenFruit" oninput="calculateCookingCostFruit()">
+<label>Amount Received (₹):</label>
+<input type="number" id="amountReceivedFruit" step="0.01" required>
 
-    <label>Amount Spent on Fruit (₹):</label>
-    <input type="number" id="fruitSpent" readonly>
+<label>Number of Students Given Fruit in Month:</label>
+<input type="number" id="studentsGivenFruit" required>
 
-    <label>Closing Balance of Fruit (₹):</label>
-    <input type="number" id="closingFruit" readonly>
-</div>
+<label>Amount Spent in Month (₹):</label>
+<input type="text" id="amountSpentFruit" readonly>
+
+<label>Closing Balance of Fruit (₹):</label>
+<input type="text" id="closingBalanceFruit" readonly>
 
 <script>
-    function calculateCookingCostFruit() {
-        let totalBenefited = parseFloat(document.getElementById("totalBenefited").value) || 0;
-        let rateCookingCost = parseFloat(document.getElementById("rateCookingCost").value) || 0;
+    function calculateCookingCost() {
+        let ratePerStudent = parseFloat(document.getElementById("cookingCostRate").value) || 0;
+        let totalStudentsBenefited = parseFloat(document.getElementById("totalStudentsBenefited").value) || 0;
+        let openingBalance = parseFloat(document.getElementById("openingBalanceCooking").value) || 0;
+        let received = parseFloat(document.getElementById("cookingCostReceived").value) || 0;
 
-        let openingCookingCost = parseFloat(document.getElementById("openingCookingCost").value) || 0;
-        let cookingCostReceived = parseFloat(document.getElementById("cookingCostReceived").value) || 0;
+        let spent = totalStudentsBenefited * ratePerStudent;
+        let closingBalance = openingBalance + received - spent;
 
-        let cookingCostSpent = totalBenefited * rateCookingCost;
-        document.getElementById("cookingCostSpent").value = cookingCostSpent.toFixed(2);
-
-        let closingCookingCost = openingCookingCost + cookingCostReceived - cookingCostSpent;
-        document.getElementById("closingCookingCost").value = closingCookingCost.toFixed(2);
-
-        // Fruit Calculation
-        let openingFruit = parseFloat(document.getElementById("openingFruit").value) || 0;
-        let fruitReceived = parseFloat(document.getElementById("fruitReceived").value) || 0;
-        let studentsGivenFruit = parseFloat(document.getElementById("studentsGivenFruit").value) || 0;
-
-        let fruitSpent = studentsGivenFruit * 5;
-        document.getElementById("fruitSpent").value = fruitSpent.toFixed(2);
-
-        let closingFruit = openingFruit + fruitReceived - fruitSpent;
-        document.getElementById("closingFruit").value = closingFruit.toFixed(2);
+        document.getElementById("cookingCostSpent").value = spent.toFixed(2);
+        document.getElementById("closingBalanceCooking").value = closingBalance.toFixed(2);
     }
+
+    function calculateFruitBalance() {
+        let openingBalance = parseFloat(document.getElementById("openingBalanceFruit").value) || 0;
+        let received = parseFloat(document.getElementById("amountReceivedFruit").value) || 0;
+        let studentsGiven = parseFloat(document.getElementById("studentsGivenFruit").value) || 0;
+
+        let spent = studentsGiven * 5;
+        let closingBalance = openingBalance + received - spent;
+
+        document.getElementById("amountSpentFruit").value = spent.toFixed(2);
+        document.getElementById("closingBalanceFruit").value = closingBalance.toFixed(2);
+    }
+
+    document.getElementById("openingBalanceCooking").addEventListener("input", calculateCookingCost);
+    document.getElementById("cookingCostReceived").addEventListener("input", calculateCookingCost);
+    document.getElementById("openingBalanceFruit").addEventListener("input", calculateFruitBalance);
+    document.getElementById("amountReceivedFruit").addEventListener("input", calculateFruitBalance);
+    document.getElementById("studentsGivenFruit").addEventListener("input", calculateFruitBalance);
 </script>
 <!-- Download Button -->
-<div class="container">
-    <button onclick="downloadPDF()">Download Report (PDF)</button>
-</div>
+<button id="downloadPDF">Download Report as PDF</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
-    function downloadPDF() {
+    document.getElementById("downloadPDF").addEventListener("click", function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
@@ -232,48 +237,52 @@
 
         doc.setFont("helvetica", "normal");
         doc.setFontSize(12);
+        
+        let yPosition = 30;
 
-        let y = 30;
-
-        function addField(label, id) {
-            let value = parseFloat(document.getElementById(id).value) || 0;
-            doc.text(`${label}: ${value.toFixed(2)}`, 20, y);
-            y += 8;
+        function addField(label, value) {
+            doc.text(`${label}: ${value}`, 20, yPosition);
+            yPosition += 8;
         }
 
-        // Adding all fields to the PDF
-        addField("Year", "year");
-        addField("Month", "month");
-        addField("MDM Report Type", "mdmType");
-        addField("Date & Time", "currentDate");
-        addField("School Name", "schoolName");
-        addField("School UDISE Code", "schoolCode");
-        addField("Price Per Student (₹)", "rateCookingCost");
-        addField("Total Students", "totalStudents");
-        addField("Days Wheat Served", "daysWheat");
-        addField("Days Rice Served", "daysRice");
-        addField("Total Days MDM Served", "totalDaysMDM");
-        addField("Students Served Wheat", "studentsWheat");
-        addField("Students Served Rice", "studentsRice");
-        addField("Total Students Benefited", "totalBenefited");
-        addField("Opening Balance of Wheat", "openingWheat");
-        addField("New Wheat Stock", "newWheatStock");
-        addField("Wheat Consumed", "wheatConsumed");
-        addField("Closing Balance of Wheat", "closingWheat");
-        addField("Opening Balance of Rice", "openingRice");
-        addField("New Rice Stock", "newRiceStock");
-        addField("Rice Consumed", "riceConsumed");
-        addField("Closing Balance of Rice", "closingRice");
-        addField("Opening Balance of Cooking-Cost", "openingCookingCost");
-        addField("Cooking-Cost Received", "cookingCostReceived");
-        addField("Cooking-Cost Spent", "cookingCostSpent");
-        addField("Closing Balance of Cooking-Cost", "closingCookingCost");
-        addField("Opening Balance of Fruit", "openingFruit");
-        addField("Fruit Amount Received", "fruitReceived");
-        addField("Students Given Fruit", "studentsGivenFruit");
-        addField("Amount Spent on Fruit", "fruitSpent");
-        addField("Closing Balance of Fruit", "closingFruit");
+        // Fetching all input values
+        addField("Year", document.getElementById("year").value);
+        addField("Month", document.getElementById("month").value);
+        addField("Report Type", document.getElementById("reportType").value);
+        addField("Date & Time", new Date().toLocaleString());
+        addField("School Name", document.getElementById("schoolName").value);
+        addField("UDISE Code", document.getElementById("schoolCode").value);
+        addField("Price per Student (₹)", parseFloat(document.getElementById("cookingCostRate").value).toFixed(2));
+        addField("Total Students", document.getElementById("totalStudents").value);
+        addField("Days Wheat Served", document.getElementById("daysWheatServed").value);
+        addField("Days Rice Served", document.getElementById("daysRiceServed").value);
+        addField("Total Days MDM Served", document.getElementById("totalDaysServed").value);
+        addField("Students Served Wheat", document.getElementById("studentsServedWheat").value);
+        addField("Students Served Rice", document.getElementById("studentsServedRice").value);
+        addField("Total Students Benefited", document.getElementById("totalStudentsBenefited").value);
+        
+        addField("Opening Balance of Wheat (kg)", parseFloat(document.getElementById("openingBalanceWheat").value).toFixed(2));
+        addField("New Stock of Wheat Received (kg)", parseFloat(document.getElementById("stockReceivedWheat").value).toFixed(2));
+        addField("Wheat Consumed (kg)", parseFloat(document.getElementById("wheatConsumed").value).toFixed(2));
+        addField("Closing Balance of Wheat (kg)", parseFloat(document.getElementById("closingBalanceWheat").value).toFixed(2));
 
+        addField("Opening Balance of Rice (kg)", parseFloat(document.getElementById("openingBalanceRice").value).toFixed(2));
+        addField("New Stock of Rice Received (kg)", parseFloat(document.getElementById("stockReceivedRice").value).toFixed(2));
+        addField("Rice Consumed (kg)", parseFloat(document.getElementById("riceConsumed").value).toFixed(2));
+        addField("Closing Balance of Rice (kg)", parseFloat(document.getElementById("closingBalanceRice").value).toFixed(2));
+
+        addField("Opening Balance of Cooking-Cost (₹)", parseFloat(document.getElementById("openingBalanceCooking").value).toFixed(2));
+        addField("Cooking-Cost Received (₹)", parseFloat(document.getElementById("cookingCostReceived").value).toFixed(2));
+        addField("Cooking-Cost Spent (₹)", parseFloat(document.getElementById("cookingCostSpent").value).toFixed(2));
+        addField("Closing Balance of Cooking-Cost (₹)", parseFloat(document.getElementById("closingBalanceCooking").value).toFixed(2));
+
+        addField("Opening Balance of Fruit (₹)", parseFloat(document.getElementById("openingBalanceFruit").value).toFixed(2));
+        addField("Amount Received (₹)", parseFloat(document.getElementById("amountReceivedFruit").value).toFixed(2));
+        addField("Students Given Fruit", document.getElementById("studentsGivenFruit").value);
+        addField("Amount Spent on Fruit (₹)", parseFloat(document.getElementById("amountSpentFruit").value).toFixed(2));
+        addField("Closing Balance of Fruit (₹)", parseFloat(document.getElementById("closingBalanceFruit").value).toFixed(2));
+
+        // Save as PDF
         doc.save("MDM_Monthly_Report.pdf");
-    }
+    });
 </script>
