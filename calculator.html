@@ -4,150 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MDM Monthly Report Calculator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
-        body { background: #f4f4f4; color: #333; text-align: center; }
-        .navbar { background: rgba(0, 51, 102, 0.9); padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .navbar-left { font-size: 22px; font-weight: bold; color: yellow; }
-        .nav-links a { color: white; text-decoration: none; font-size: 18px; margin: 0 10px; padding: 10px; }
-        .container { max-width: 800px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; }
-        h1 { color: #003366; font-size: 24px; margin-bottom: 15px; }
-        label { font-weight: bold; display: block; margin-top: 10px; text-align: left; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
-        .output { font-weight: bold; color: blue; background: #f0f8ff; }
-        .download-btn { background: #28a745; color: white; padding: 10px; border: none; margin-top: 15px; cursor: pointer; }
+        * { font-family: "Poppins", sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f4f4f4; text-align: center; }
+        .container { max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+        input, select { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #003366; color: #fff; border: none; padding: 10px; margin-top: 10px; cursor: pointer; width: 100%; border-radius: 5px; }
+        button:hover { background: #002244; }
+        .section-title { font-weight: bold; margin-top: 20px; color: #003366; }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <div class="navbar-left">GPS Shahkot Boys</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="admissions.html">Admissions</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="calculator.html">Calculator</a>
-        </div>
-    </div>
-
     <div class="container">
-        <h1>MDM Monthly Report Calculator</h1>
+        <h2>MDM Monthly Report Calculator</h2>
 
-        <label>Select Year:</label>
+        <!-- Part 1: General Details -->
+        <p class="section-title">General Details</p>
         <select id="year">
-            <option>2025</option>
-            <option>2026</option>
-            <option>2027</option>
-            <option>2028</option>
-            <option>2029</option>
-            <option>2030</option>
+            <script> for(let i = 2025; i <= 2030; i++) document.write(`<option value="${i}">${i}</option>`); </script>
         </select>
-
-        <label>Select Month:</label>
         <select id="month">
-            <option>January</option>
-            <option>February</option>
-            <option>March</option>
-            <option>April</option>
-            <option>May</option>
-            <option>June</option>
-            <option>July</option>
-            <option>August</option>
-            <option>September</option>
-            <option>October</option>
-            <option>November</option>
-            <option>December</option>
+            <script> ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].forEach(m => document.write(`<option value="${m}">${m}</option>`)); </script>
         </select>
-
-        <label>MDM Report Type:</label>
-        <select id="reportType">
-            <option>Pre-Primary MDM Report</option>
-            <option>Primary MDM Report</option>
+        <select id="mdmType">
+            <option value="Pre-Primary MDM Report">Pre-Primary MDM Report</option>
+            <option value="Primary MDM Report">Primary MDM Report</option>
         </select>
+        <input type="text" id="currentDate" readonly>
+        <script> document.getElementById("currentDate").value = new Date().toLocaleString(); </script>
+        <input type="text" id="schoolName" placeholder="Enter School Name">
+        <input type="text" id="schoolCode" placeholder="Enter School UDISE Code">
+        <input type="number" id="rateCookingCost" placeholder="Price per Student (₹)">
+        <input type="number" id="totalStudents" placeholder="Total Students">
+        <input type="number" id="daysWheat" placeholder="Number of Days Wheat Served">
+        <input type="number" id="daysRice" placeholder="Number of Days Rice Served">
+        <input type="text" id="totalDaysMDM" readonly placeholder="Total Days MDM Served">
+        
+        <!-- Part 2: Student Details & Grains -->
+        <p class="section-title">Student & Grains Details</p>
+        <input type="number" id="studentsWheat" placeholder="Students Served Wheat">
+        <input type="number" id="studentsRice" placeholder="Students Served Rice">
+        <input type="text" id="totalBenefited" readonly placeholder="Total Students Benefited">
+        <input type="number" id="openingWheat" placeholder="Opening Balance of Wheat">
+        <input type="number" id="newWheatStock" placeholder="New Stock of Wheat">
+        <input type="text" id="wheatConsumed" readonly placeholder="Wheat Consumed">
+        <input type="text" id="closingWheat" readonly placeholder="Closing Balance of Wheat">
+        <input type="number" id="openingRice" placeholder="Opening Balance of Rice">
+        <input type="number" id="newRiceStock" placeholder="New Stock of Rice">
+        <input type="text" id="riceConsumed" readonly placeholder="Rice Consumed">
+        <input type="text" id="closingRice" readonly placeholder="Closing Balance of Rice">
 
-        <label>Current Date & Time:</label>
-        <input type="text" id="currentDateTime" readonly>
+        <!-- Part 3: Financial Details -->
+        <p class="section-title">Cooking Cost & Fruit Details</p>
+        <input type="number" id="openingCookingCost" placeholder="Opening Balance of Cooking Cost">
+        <input type="number" id="cookingCostReceived" placeholder="Cooking Cost Received">
+        <input type="text" id="cookingCostSpent" readonly placeholder="Cooking Cost Spent">
+        <input type="text" id="closingCookingCost" readonly placeholder="Closing Balance of Cooking Cost">
+        <input type="number" id="openingFruit" placeholder="Opening Balance of Fruit">
+        <input type="number" id="fruitReceived" placeholder="Fruit Amount Received">
+        <input type="number" id="studentsGivenFruit" placeholder="Students Given Fruit">
+        <input type="text" id="fruitSpent" readonly placeholder="Amount Spent on Fruit">
+        <input type="text" id="closingFruit" readonly placeholder="Closing Balance of Fruit">
 
-        <label>School Name:</label>
-        <input type="text" id="schoolName">
-
-        <label>School UDISE Code:</label>
-        <input type="text" id="schoolCode">
-
-        <label>Cooking Cost per Student (₹):</label>
-        <input type="number" id="cookingCost" step="0.01">
-
-        <label>Opening Balance of Wheat:</label>
-        <input type="number" id="openingWheat">
-
-        <label>New Stock of Wheat Received:</label>
-        <input type="number" id="newWheat">
-
-        <label>Wheat Consumed in Month (Auto-calculated):</label>
-        <input type="text" id="consumedWheat" readonly class="output">
-
-        <label>Closing Balance of Wheat (Auto-calculated):</label>
-        <input type="text" id="closingWheat" readonly class="output">
-
-        <button class="download-btn" onclick="generatePDF()">Download PDF</button>
+        <!-- Download PDF Button -->
+        <button onclick="downloadPDF()">Download Report (PDF)</button>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        function updateDateTime() {
-            const now = new Date();
-            document.getElementById("currentDateTime").value = now.toLocaleString();
+        function updateCalculations() {
+            let daysWheat = parseFloat(document.getElementById("daysWheat").value) || 0;
+            let daysRice = parseFloat(document.getElementById("daysRice").value) || 0;
+            document.getElementById("totalDaysMDM").value = daysWheat + daysRice;
+
+            let studentsWheat = parseFloat(document.getElementById("studentsWheat").value) || 0;
+            let studentsRice = parseFloat(document.getElementById("studentsRice").value) || 0;
+            document.getElementById("totalBenefited").value = studentsWheat + studentsRice;
+
+            document.getElementById("wheatConsumed").value = (studentsWheat * 0.1).toFixed(2);
+            document.getElementById("riceConsumed").value = (studentsRice * 0.1).toFixed(2);
+
+            let rate = parseFloat(document.getElementById("rateCookingCost").value) || 0;
+            document.getElementById("cookingCostSpent").value = (studentsWheat + studentsRice) * rate;
+
+            let studentsFruit = parseFloat(document.getElementById("studentsGivenFruit").value) || 0;
+            document.getElementById("fruitSpent").value = (studentsFruit * 5).toFixed(2);
         }
-        updateDateTime();
 
-        function calculateFields() {
-            let openingWheat = parseFloat(document.getElementById("openingWheat").value) || 0;
-            let newWheat = parseFloat(document.getElementById("newWheat").value) || 0;
-            let consumedWheat = (newWheat * 0.1).toFixed(2);
-            let closingWheat = (openingWheat + newWheat - consumedWheat).toFixed(2);
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("input", updateCalculations);
+        });
 
-            document.getElementById("consumedWheat").value = consumedWheat;
-            document.getElementById("closingWheat").value = closingWheat;
-        }
-
-        document.getElementById("newWheat").addEventListener("input", calculateFields);
-
-        function generatePDF() {
+        function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-
-            doc.setFont("helvetica", "bold");
             doc.setFontSize(16);
-            doc.text("MDM Monthly Report", 80, 20);
-
-            doc.setFont("helvetica", "normal");
+            doc.text("MDM Monthly Report", 105, 15, null, null, "center");
             doc.setFontSize(12);
-
-            let y = 40;
-            doc.text(`Year: ${document.getElementById("year").value}`, 20, y);
-            y += 10;
-            doc.text(`Month: ${document.getElementById("month").value}`, 20, y);
-            y += 10;
-            doc.text(`MDM Report Type: ${document.getElementById("reportType").value}`, 20, y);
-            y += 10;
-            doc.text(`Current Date & Time: ${document.getElementById("currentDateTime").value}`, 20, y);
-            y += 10;
-            doc.text(`School Name: ${document.getElementById("schoolName").value}`, 20, y);
-            y += 10;
-            doc.text(`School UDISE Code: ${document.getElementById("schoolCode").value}`, 20, y);
-            y += 10;
-            doc.text(`Cooking Cost per Student (₹): ${document.getElementById("cookingCost").value}`, 20, y);
-            y += 10;
-            doc.text(`Opening Wheat Balance: ${document.getElementById("openingWheat").value}`, 20, y);
-            y += 10;
-            doc.text(`New Stock of Wheat: ${document.getElementById("newWheat").value}`, 20, y);
-            y += 10;
-            doc.text(`Wheat Consumed: ${document.getElementById("consumedWheat").value}`, 20, y);
-            y += 10;
-            doc.text(`Closing Wheat Balance: ${document.getElementById("closingWheat").value}`, 20, y);
-
+            let y = 30;
+            function addField(label, id) {
+                let value = document.getElementById(id).value || "";
+                doc.text(`${label}: ${value}`, 20, y);
+                y += 8;
+            }
+            ["year", "month", "mdmType", "currentDate", "schoolName", "schoolCode", "rateCookingCost", "totalStudents", "totalDaysMDM", "totalBenefited", "wheatConsumed", "riceConsumed", "cookingCostSpent", "fruitSpent"].forEach(field => addField(field.replace(/([A-Z])/g, ' $1'), field));
             doc.save("MDM_Monthly_Report.pdf");
         }
     </script>
