@@ -4,6 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MDM Monthly Report Calculator</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">School Name</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="calculator.html" class="active">Calculator</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="page-header">
+        <div class="container">
+            <h1>MDM Monthly Report Calculator</h1>
+            <p>Calculate and generate monthly reports for Mid-Day Meals.</p>
+        </div>
+    </header>
+
+    <!-- Calculator Form Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <form id="calculator-form">
+                <h2>MDM Report Inputs</h2>
+                <p>Please fill in the required details to generate the report.</p>
+
+                <!-- Form Fields (Will be populated in parts) -->
+                <div id="form-content">
+                    <!-- The calculator fields will be inserted here dynamically -->
+                </div>
+
+                <!-- Buttons to Proceed Through Parts -->
+                <div class="button-group">
+                    <button type="button" id="prev-btn" disabled>Previous</button>
+                    <button type="button" id="next-btn">Next</button>
+                </div>
+
+                <!-- Download Buttons (Initially Hidden) -->
+                <div class="download-buttons" style="display: none;">
+                    <button type="button" id="download-pdf">Download PDF</button>
+                    <button type="button" id="download-excel">Download Excel</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 School Name. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM Monthly Report Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
