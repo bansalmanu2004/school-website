@@ -177,3 +177,41 @@
 
 </body>
 </html>
+<!-- Cooking Cost Fields -->
+<label for="openingCookingCost">Opening Balance of Cooking-Cost (₹):</label>
+<input type="number" id="openingCookingCost">
+
+<label for="receivedCookingCost">Cooking-Cost Received (₹):</label>
+<input type="number" id="receivedCookingCost">
+
+<label for="spentCookingCost">Cooking-Cost Spent in Month (₹):</label>
+<input type="number" id="spentCookingCost" class="readonly">
+
+<label for="closingCookingCost">Closing Balance of Cooking-Cost (₹):</label>
+<input type="number" id="closingCookingCost" class="readonly">
+
+<script>
+    function updateCookingCostCalculations() {
+        let totalStudentsBenefited = parseFloat(document.getElementById("studentsBenefited").value) || 0; // Field 14
+        let cookingCostPerStudent = parseFloat(document.getElementById("cookingCost").value) || 0; // Field 7
+
+        let openingCookingCost = parseFloat(document.getElementById("openingCookingCost").value) || 0;
+        let receivedCookingCost = parseFloat(document.getElementById("receivedCookingCost").value) || 0;
+
+        // Calculate Cooking-Cost Spent
+        let spentCookingCost = totalStudentsBenefited * cookingCostPerStudent;
+        document.getElementById("spentCookingCost").value = spentCookingCost.toFixed(2);
+
+        // Calculate Closing Balance
+        let closingCookingCost = openingCookingCost + receivedCookingCost - spentCookingCost;
+        document.getElementById("closingCookingCost").value = closingCookingCost.toFixed(2);
+    }
+
+    // Attach event listeners to relevant inputs
+    document.getElementById("openingCookingCost").addEventListener("input", updateCookingCostCalculations);
+    document.getElementById("receivedCookingCost").addEventListener("input", updateCookingCostCalculations);
+    document.getElementById("studentsBenefited").addEventListener("input", updateCookingCostCalculations);
+    document.getElementById("cookingCost").addEventListener("input", updateCookingCostCalculations);
+
+    updateCookingCostCalculations(); // Initial Calculation
+</script>
