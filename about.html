@@ -12,80 +12,129 @@
             font-family: "Poppins", sans-serif;
         }
         body {
-            background: url('https://source.unsplash.com/1600x900/?students,classroom,school') no-repeat center center/cover;
+            background: url('https://source.unsplash.com/1600x900/?education,classroom') no-repeat center center/cover;
             color: #fff;
             text-align: center;
         }
         .navbar {
             background: rgba(0, 51, 102, 0.9);
             padding: 15px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .navbar a {
+        .navbar-left {
+            font-size: 22px;
+            font-weight: bold;
+            color: yellow;
+            animation: blink 1s infinite;
+        }
+        .navbar-right {
+            font-size: 16px;
+            font-weight: bold;
+            color: lightblue;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .nav-links a {
             color: white;
             text-decoration: none;
             font-size: 18px;
-            margin: 0 20px;
+            margin: 0 10px;
             padding: 10px;
             transition: 0.3s;
         }
-        .navbar a:hover {
+        .nav-links a:hover {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
         }
+        .school-name {
+            font-size: 28px;
+            font-weight: bold;
+            background: yellow;
+            color: #003366;
+            padding: 10px 20px;
+            display: inline-block;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            animation: highlight 1s infinite alternate;
+        }
+        @keyframes highlight {
+            0% { background: yellow; color: #003366; }
+            100% { background: orange; color: white; }
+        }
         .container {
             max-width: 800px;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.85);
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
             color: #333;
+            text-align: left;
         }
         h1 {
             color: #003366;
             font-size: 32px;
-            margin-bottom: 15px;
+            text-align: center;
         }
         p {
             font-size: 18px;
-            color: #444;
-            margin: 15px 0;
-            text-align: justify;
             line-height: 1.6;
+            color: #444;
+            margin-top: 15px;
         }
         .divider {
             width: 60px;
             height: 4px;
             background-color: #003366;
-            margin: 15px auto;
+            margin: 20px auto;
             border-radius: 2px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Menu -->
+    <!-- Navigation Bar -->
     <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="admissions.html">Admissions</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="calculator.html">Calculator</a>
+        <div class="navbar-left">GPS Shahkot Boys</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="admissions.html">Admissions</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="calculator.html">Calculator</a>
+        </div>
+        <div class="navbar-right">Manoj Bansal | 9888666363</div>
     </div>
 
+    <!-- School Name Below Navbar -->
+    <div class="school-name">GPS Shahkot Boys</div>
+
+    <!-- About Us Section -->
     <div class="container">
         <h1>About Us</h1>
         <div class="divider"></div>
-
-        <p><strong>GPS Shahkot Boys</strong> is a government primary school committed to providing quality education in a nurturing environment. We aim to shape young minds and prepare them for a bright future.</p>
-
-        <p>Located in <strong>Shahkot, District Jalandhar</strong>, we focus on holistic learning through academics, extracurricular activities, and moral education.</p>
-
-        <p>Our dedicated faculty and staff work tirelessly to ensure that every student receives the best education possible.</p>
-
-        <p>We believe in empowering students with knowledge, discipline, and confidence to achieve success in their lives.</p>
+        <p>
+            GPS Shahkot Boys is a prestigious school dedicated to providing quality education 
+            to students in Tehsil Shahkot, Block Shahkot-1, District Jalandhar. Our mission is 
+            to nurture young minds, fostering academic excellence and personal growth.
+        </p>
+        <p>
+            Our school is equipped with modern facilities, experienced faculty, and a curriculum 
+            that ensures holistic development. We believe in creating an environment where students 
+            can explore their potential and excel in various fields.
+        </p>
+        <p>
+            With the guidance of our dedicated teachers and the support of parents, GPS Shahkot Boys 
+            continues to achieve remarkable success in both academics and extracurricular activities.
+        </p>
     </div>
 
 </body>
