@@ -253,7 +253,7 @@
 
     updateFruitCalculations(); // Initial Calculation
 </script>
-<!-- Button to Download PDF -->
+<!-- PDF Generation -->
 <button onclick="downloadPDF()">Download PDF</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -264,52 +264,57 @@
         const doc = new jsPDF();
 
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(14);
-        doc.text("MDM Monthly Report", 105, 15, null, null, "center");
+        doc.setFontSize(16);
+        doc.text("MDM Monthly Report", 105, 15, { align: "center" });
 
-        let data = [
-            ["Field", "Value"],
-            ["Year", document.getElementById("year").value],
-            ["Month", document.getElementById("month").value],
-            ["Report Type", document.getElementById("reportType").value],
-            ["Date & Time", document.getElementById("currentDateTime").value],
-            ["School Name", document.getElementById("schoolName").value],
-            ["School UDISE Code", document.getElementById("udiseCode").value],
-            ["Cooking Cost per Student (₹)", document.getElementById("cookingCost").value],
-            ["Total Students", document.getElementById("totalStudents").value],
-            ["Days Wheat Served", document.getElementById("daysWheat").value],
-            ["Days Rice Served", document.getElementById("daysRice").value],
-            ["Total Days MDM Served", document.getElementById("totalDaysMDM").value],
-            ["Students Served Wheat", document.getElementById("studentsWheat").value],
-            ["Students Served Rice", document.getElementById("studentsRice").value],
-            ["Total Students Benefited", document.getElementById("studentsBenefited").value],
-            ["Opening Balance of Wheat", document.getElementById("openingWheat").value],
-            ["New Wheat Received", document.getElementById("newWheat").value],
-            ["Wheat Consumed", document.getElementById("consumedWheat").value],
-            ["Closing Balance of Wheat", document.getElementById("closingWheat").value],
-            ["Opening Balance of Rice", document.getElementById("openingRice").value],
-            ["New Rice Received", document.getElementById("newRice").value],
-            ["Rice Consumed", document.getElementById("consumedRice").value],
-            ["Closing Balance of Rice", document.getElementById("closingRice").value],
-            ["Opening Balance of Cooking-Cost", document.getElementById("openingCookingCost").value],
-            ["Cooking-Cost Received", document.getElementById("receivedCookingCost").value],
-            ["Cooking-Cost Spent", document.getElementById("spentCookingCost").value],
-            ["Closing Balance of Cooking-Cost", document.getElementById("closingCookingCost").value],
-            ["Opening Balance of Fruit", document.getElementById("openingBalanceFruit").value],
-            ["Amount Received for Fruit", document.getElementById("amountReceivedFruit").value],
-            ["Students Given Fruit", document.getElementById("studentsGivenFruit").value],
-            ["Amount Spent on Fruit", document.getElementById("amountSpentFruit").value],
-            ["Closing Balance of Fruit", document.getElementById("closingBalanceFruit").value],
-        ];
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
 
-        doc.autoTable({
-            head: [data[0]],
-            body: data.slice(1),
-            startY: 25,
-            styles: { fontSize: 10, cellPadding: 3 },
-            headStyles: { fillColor: [0, 112, 192], textColor: [255, 255, 255] },
-            alternateRowStyles: { fillColor: [240, 240, 240] },
-        });
+        let y = 25;
+        function addField(label, value) {
+            doc.text(`${label}: ${value}`, 15, y);
+            y += 8;
+            if (y > 275) {  // Start a new page if space runs out
+                doc.addPage();
+                y = 15;
+            }
+        }
+
+        addField("Year", document.getElementById("year").value);
+        addField("Month", document.getElementById("month").value);
+        addField("Report Type", document.getElementById("reportType").value);
+        addField("Date & Time", document.getElementById("currentDateTime").value);
+        addField("School Name", document.getElementById("schoolName").value);
+        addField("School UDISE Code", document.getElementById("udiseCode").value);
+        addField("Price/Rate of Cooking Cost per Student (₹)", document.getElementById("cookingCost").value);
+        addField("Total Students", document.getElementById("totalStudents").value);
+        addField("Number of Days Wheat Served", document.getElementById("daysWheat").value);
+        addField("Number of Days Rice Served", document.getElementById("daysRice").value);
+        addField("Total Number of Days MDM Served", document.getElementById("totalDaysMDM").value);
+        addField("Total Students Served Wheat in Month", document.getElementById("studentsWheat").value);
+        addField("Total Students Served Rice in Month", document.getElementById("studentsRice").value);
+        addField("Total Students Benefited", document.getElementById("studentsBenefited").value);
+        
+        addField("Opening Balance of Wheat", document.getElementById("openingWheat").value);
+        addField("New Stock of Wheat Received", document.getElementById("newWheat").value);
+        addField("Wheat Consumed in Month", document.getElementById("consumedWheat").value);
+        addField("Closing Balance of Wheat", document.getElementById("closingWheat").value);
+        
+        addField("Opening Balance of Rice", document.getElementById("openingRice").value);
+        addField("New Stock of Rice Received", document.getElementById("newRice").value);
+        addField("Rice Consumed in Month", document.getElementById("consumedRice").value);
+        addField("Closing Balance of Rice", document.getElementById("closingRice").value);
+        
+        addField("Opening Balance of Cooking-Cost (₹)", document.getElementById("openingCookingCost").value);
+        addField("Cooking-Cost Received (₹)", document.getElementById("receivedCookingCost").value);
+        addField("Cooking-Cost Spent in Month (₹)", document.getElementById("spentCookingCost").value);
+        addField("Closing Balance of Cooking-Cost (₹)", document.getElementById("closingCookingCost").value);
+        
+        addField("Opening Balance of Fruit (₹)", document.getElementById("openingBalanceFruit").value);
+        addField("Amount Received for Fruit (₹)", document.getElementById("amountReceivedFruit").value);
+        addField("Number of Students Given Fruit in Month", document.getElementById("studentsGivenFruit").value);
+        addField("Amount Spent in Month (₹)", document.getElementById("amountSpentFruit").value);
+        addField("Closing Balance of Fruit (₹)", document.getElementById("closingBalanceFruit").value);
 
         doc.save("MDM_Monthly_Report.pdf");
     }
