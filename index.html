@@ -53,6 +53,22 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
         }
+        .school-name {
+            font-size: 28px;
+            font-weight: bold;
+            background: yellow;
+            color: #003366;
+            padding: 10px 20px;
+            display: inline-block;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            animation: highlight 1s infinite alternate;
+        }
+        @keyframes highlight {
+            0% { background: yellow; color: #003366; }
+            100% { background: orange; color: white; }
+        }
         .slideshow-container {
             position: relative;
             max-width: 100%;
@@ -70,7 +86,7 @@
         }
         .container {
             max-width: 600px;
-            margin: 50px auto;
+            margin: 30px auto;
             background: rgba(255, 255, 255, 0.85);
             padding: 30px;
             border-radius: 10px;
@@ -119,6 +135,9 @@
         </div>
         <div class="navbar-right">Manoj Bansal | 9888666363</div>
     </div>
+
+    <!-- School Name Below Navbar -->
+    <div class="school-name">GPS Shahkot Boys</div>
 
     <!-- Slideshow Section -->
     <div class="slideshow-container">
