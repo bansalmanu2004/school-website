@@ -4,169 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MDM Monthly Report Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e3f2fd;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background-color: #0288d1;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-        }
-        .form-step {
-            display: none;
-        }
-        .active {
-            display: block;
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            margin-top: 15px;
-            padding: 10px;
-            background: #0288d1;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0277bd;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+        body { background: #f4f4f4; color: #333; text-align: center; }
+        .navbar { background: rgba(0, 51, 102, 0.9); padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .navbar-left { font-size: 22px; font-weight: bold; color: yellow; }
+        .nav-links a { color: white; text-decoration: none; font-size: 18px; margin: 0 10px; padding: 10px; }
+        .container { max-width: 800px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; }
+        h1 { color: #003366; font-size: 24px; margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-top: 10px; text-align: left; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+        .output { font-weight: bold; color: blue; background: #f0f8ff; }
+        .download-btn { background: #28a745; color: white; padding: 10px; border: none; margin-top: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
+
+    <!-- Navigation Bar -->
     <div class="navbar">
-        <span>School Name</span>
-        <span>MDM Report</span>
+        <div class="navbar-left">GPS Shahkot Boys</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="admissions.html">Admissions</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="calculator.html">Calculator</a>
+        </div>
     </div>
 
     <div class="container">
-        <h2>MDM Monthly Report Calculator</h2>
-        
-        <form id="mdmForm">
-            <div class="form-step active" id="step1">
-                <label>Select Year:</label>
-                <select id="year"> 
-                    <option>2025</option>
-                    <option>2026</option>
-                    <option>2027</option>
-                    <option>2028</option>
-                    <option>2029</option>
-                    <option>2030</option>
-                </select>
-                <label>Select Month:</label>
-                <select id="month">
-                    <option>January</option>
-                    <option>February</option>
-                    <option>March</option>
-                    <option>April</option>
-                    <option>May</option>
-                    <option>June</option>
-                    <option>July</option>
-                    <option>August</option>
-                    <option>September</option>
-                    <option>October</option>
-                    <option>November</option>
-                    <option>December</option>
-                </select>
-                <label>Report Type:</label>
-                <select id="reportType">
-                    <option>Pre-Primary MDM Report</option>
-                    <option>Primary MDM Report</option>
-                </select>
-                <label>Current Date and Time:</label>
-                <input type="text" id="dateTime" readonly>
-                <label>School Name:</label>
-                <input type="text" id="schoolName" required>
-                <label>School UDISE Code:</label>
-                <input type="text" id="udise" required>
-                <label>Price/Rate of Cooking Cost per Student (Rs):</label>
-                <input type="number" id="cookingCost" required>
-                <label>Total Students:</label>
-                <input type="number" id="totalStudents" required>
-                <button type="button" onclick="nextStep(1)">Next</button>
-            </div>
+        <h1>MDM Monthly Report Calculator</h1>
 
-            <div class="form-step" id="step2">
-                <label>Number of Days Wheat Served:</label>
-                <input type="number" id="daysWheat" required>
-                <label>Number of Days Rice Served:</label>
-                <input type="number" id="daysRice" required>
-                <button type="button" onclick="prevStep(2)">Previous</button>
-                <button type="button" onclick="nextStep(2)">Next</button>
-            </div>
+        <label>Select Year:</label>
+        <select id="year">
+            <option>2025</option>
+            <option>2026</option>
+            <option>2027</option>
+            <option>2028</option>
+            <option>2029</option>
+            <option>2030</option>
+        </select>
 
-            <div class="form-step" id="step3">
-                <label>Opening Balance of Rice:</label>
-                <input type="number" id="riceOpening" required>
-                <label>New Stock of Rice Received:</label>
-                <input type="number" id="riceReceived" required>
-                <button type="button" onclick="prevStep(3)">Previous</button>
-                <button type="button" onclick="nextStep(3)">Next</button>
-            </div>
+        <label>Select Month:</label>
+        <select id="month">
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+        </select>
 
-            <div class="form-step" id="step4">
-                <label>Opening Balance of Fruit:</label>
-                <input type="number" id="fruitOpening" required>
-                <label>Amount Received:</label>
-                <input type="number" id="fruitReceived" required>
-                <button type="button" onclick="prevStep(4)">Previous</button>
-                <button type="button" onclick="calculate()">Calculate</button>
-                <button type="button" onclick="downloadPDF()">Download PDF</button>
-            </div>
-        </form>
+        <label>MDM Report Type:</label>
+        <select id="reportType">
+            <option>Pre-Primary MDM Report</option>
+            <option>Primary MDM Report</option>
+        </select>
+
+        <label>Current Date & Time:</label>
+        <input type="text" id="currentDateTime" readonly>
+
+        <label>School Name:</label>
+        <input type="text" id="schoolName">
+
+        <label>School UDISE Code:</label>
+        <input type="text" id="schoolCode">
+
+        <label>Cooking Cost per Student (₹):</label>
+        <input type="number" id="cookingCost" step="0.01">
+
+        <label>Opening Balance of Wheat:</label>
+        <input type="number" id="openingWheat">
+
+        <label>New Stock of Wheat Received:</label>
+        <input type="number" id="newWheat">
+
+        <label>Wheat Consumed in Month (Auto-calculated):</label>
+        <input type="text" id="consumedWheat" readonly class="output">
+
+        <label>Closing Balance of Wheat (Auto-calculated):</label>
+        <input type="text" id="closingWheat" readonly class="output">
+
+        <button class="download-btn" onclick="generatePDF()">Download PDF</button>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("dateTime").value = new Date().toLocaleString();
-        });
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById("currentDateTime").value = now.toLocaleString();
+        }
+        updateDateTime();
 
-        let currentStep = 1;
+        function calculateFields() {
+            let openingWheat = parseFloat(document.getElementById("openingWheat").value) || 0;
+            let newWheat = parseFloat(document.getElementById("newWheat").value) || 0;
+            let consumedWheat = (newWheat * 0.1).toFixed(2);
+            let closingWheat = (openingWheat + newWheat - consumedWheat).toFixed(2);
 
-        function nextStep(step) {
-            document.getElementById("step" + step).classList.remove("active");
-            document.getElementById("step" + (step + 1)).classList.add("active");
+            document.getElementById("consumedWheat").value = consumedWheat;
+            document.getElementById("closingWheat").value = closingWheat;
         }
 
-        function prevStep(step) {
-            document.getElementById("step" + step).classList.remove("active");
-            document.getElementById("step" + (step - 1)).classList.add("active");
-        }
+        document.getElementById("newWheat").addEventListener("input", calculateFields);
 
-        function calculate() {
-            alert("Calculations Completed!");
-        }
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
-        function downloadPDF() {
-            alert("Downloading PDF...");
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(16);
+            doc.text("MDM Monthly Report", 80, 20);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(12);
+
+            let y = 40;
+            doc.text(`Year: ${document.getElementById("year").value}`, 20, y);
+            y += 10;
+            doc.text(`Month: ${document.getElementById("month").value}`, 20, y);
+            y += 10;
+            doc.text(`MDM Report Type: ${document.getElementById("reportType").value}`, 20, y);
+            y += 10;
+            doc.text(`Current Date & Time: ${document.getElementById("currentDateTime").value}`, 20, y);
+            y += 10;
+            doc.text(`School Name: ${document.getElementById("schoolName").value}`, 20, y);
+            y += 10;
+            doc.text(`School UDISE Code: ${document.getElementById("schoolCode").value}`, 20, y);
+            y += 10;
+            doc.text(`Cooking Cost per Student (₹): ${document.getElementById("cookingCost").value}`, 20, y);
+            y += 10;
+            doc.text(`Opening Wheat Balance: ${document.getElementById("openingWheat").value}`, 20, y);
+            y += 10;
+            doc.text(`New Stock of Wheat: ${document.getElementById("newWheat").value}`, 20, y);
+            y += 10;
+            doc.text(`Wheat Consumed: ${document.getElementById("consumedWheat").value}`, 20, y);
+            y += 10;
+            doc.text(`Closing Wheat Balance: ${document.getElementById("closingWheat").value}`, 20, y);
+
+            doc.save("MDM_Monthly_Report.pdf");
         }
     </script>
+
 </body>
 </html>
