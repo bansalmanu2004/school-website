@@ -169,5 +169,48 @@
             <button type="button" onclick="submitData()">Submit</button>
         </form>
     </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Automatically capture current date & time
+        document.getElementById("dateTime").value = new Date().toLocaleString();
+
+        // Function to update calculated fields
+        function calculateFields() {
+            // Get input values
+            let wheatDays = parseInt(document.getElementById("wheatDays").value) || 0;
+            let riceDays = parseInt(document.getElementById("riceDays").value) || 0;
+            let studentsWheat = parseInt(document.getElementById("studentsWheat").value) || 0;
+            let studentsRice = parseInt(document.getElementById("studentsRice").value) || 0;
+            let cookingCostRate = parseFloat(document.getElementById("cookingCost").value) || 0;
+            let openingWheat = parseFloat(document.getElementById("wheatOpening").value) || 0;
+            let newWheatStock = parseFloat(document.getElementById("wheatReceived").value) || 0;
+            let openingRice = parseFloat(document.getElementById("riceOpening").value) || 0;
+            let newRiceStock = parseFloat(document.getElementById("riceReceived").value) || 0;
+            let openingCookingCost = parseFloat(document.getElementById("cookingOpening").value) || 0;
+            let receivedCookingCost = parseFloat(document.getElementById("cookingReceived").value) || 0;
+            let studentsFruit = parseInt(document.getElementById("studentsFruit").value) || 0;
+            let openingFruit = parseFloat(document.getElementById("fruitOpening").value) || 0;
+            let receivedFruit = parseFloat(document.getElementById("fruitReceived").value) || 0;
+
+            // Perform calculations
+            document.getElementById("totalMdmDays").value = wheatDays + riceDays;
+            document.getElementById("studentsBenefited").value = studentsWheat + studentsRice;
+            document.getElementById("wheatConsumed").value = studentsWheat * 0.1;
+            document.getElementById("wheatClosing").value = openingWheat + newWheatStock - (studentsWheat * 0.1);
+            document.getElementById("riceConsumed").value = studentsRice * 0.1;
+            document.getElementById("riceClosing").value = openingRice + newRiceStock - (studentsRice * 0.1);
+            document.getElementById("cookingSpent").value = (studentsWheat + studentsRice) * cookingCostRate;
+            document.getElementById("cookingClosing").value = openingCookingCost + receivedCookingCost - ((studentsWheat + studentsRice) * cookingCostRate);
+            document.getElementById("fruitSpent").value = studentsFruit * 5;
+            document.getElementById("fruitClosing").value = openingFruit + receivedFruit - (studentsFruit * 5);
+        }
+
+        // Add event listeners to auto-update calculations
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("input", calculateFields);
+        });
+    });
+</script>
+
 </body>
 </html>
