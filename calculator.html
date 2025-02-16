@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MDM Monthly Report Calculator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,14 +30,6 @@
         .readonly {
             background: #f0f0f0;
             pointer-events: none;
-        }
-        button {
-            margin-top: 15px;
-            padding: 10px;
-            background: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -134,8 +125,18 @@
     <label for="closingWheat">Closing Balance of Wheat:</label>
     <input type="number" id="closingWheat" class="readonly">
 
-    <!-- Button to Download PDF -->
-    <button onclick="downloadPDF()">Download Report as PDF</button>
+    <!-- Opening Balance of Rice -->
+    <label for="openingRice">Opening Balance of Rice:</label>
+    <input type="number" id="openingRice">
+
+    <label for="newRice">New Stock of Rice Received:</label>
+    <input type="number" id="newRice">
+
+    <label for="consumedRice">Rice Consumed in Month:</label>
+    <input type="number" id="consumedRice" class="readonly">
+
+    <label for="closingRice">Closing Balance of Rice:</label>
+    <input type="number" id="closingRice" class="readonly">
 </div>
 
 <script>
@@ -157,28 +158,20 @@
         let consumedWheat = studentsWheat * 0.1;
         document.getElementById("consumedWheat").value = consumedWheat.toFixed(2);
         document.getElementById("closingWheat").value = (openingWheat + newWheat - consumedWheat).toFixed(2);
+
+        let openingRice = parseFloat(document.getElementById("openingRice").value) || 0;
+        let newRice = parseFloat(document.getElementById("newRice").value) || 0;
+        let consumedRice = studentsRice * 0.1;
+        document.getElementById("consumedRice").value = consumedRice.toFixed(2);
+        document.getElementById("closingRice").value = (openingRice + newRice - consumedRice).toFixed(2);
     }
 
-    function downloadPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        doc.text("MDM Monthly Report", 10, 10);
-        doc.text(`Year: ${document.getElementById("year").value}`, 10, 20);
-        doc.text(`Month: ${document.getElementById("month").value}`, 10, 30);
-        doc.text(`School Name: ${document.getElementById("schoolName").value}`, 10, 40);
-        doc.text(`UDISE Code: ${document.getElementById("udiseCode").value}`, 10, 50);
-        doc.text(`Total Students Benefited: ${document.getElementById("studentsBenefited").value}`, 10, 60);
-        doc.text(`Wheat Consumed: ${document.getElementById("consumedWheat").value} kg`, 10, 70);
-        doc.text(`Closing Balance of Wheat: ${document.getElementById("closingWheat").value} kg`, 10, 80);
-
-        doc.save("MDM_Report.pdf");
-    }
-
+    // Add event listeners to update calculations when inputs change
     document.querySelectorAll("input").forEach(input => {
         input.addEventListener("input", updateCalculations);
     });
 
+    // Run calculations on page load
     updateCalculations();
 </script>
 
