@@ -137,3 +137,145 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM Monthly Report Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            background: url('https://source.unsplash.com/1600x900/?school,education') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            color: #333;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>MDM Monthly Report Calculator</h1>
+
+        <!-- Auto-calculated: Total MDM Days -->
+        <label for="total-mdm-days">Total Number of Days MDM Served:</label>
+        <input type="number" id="total-mdm-days" readonly>
+
+        <!-- User Input: Total Students Served Wheat & Rice -->
+        <label for="students-wheat">Total Students Served Wheat in Month:</label>
+        <input type="number" id="students-wheat" placeholder="Enter number of students">
+
+        <label for="students-rice">Total Students Served Rice in Month:</label>
+        <input type="number" id="students-rice" placeholder="Enter number of students">
+
+        <!-- Auto-calculated: Total Students Benefited -->
+        <label for="total-students-benefited">Total Students Benefited:</label>
+        <input type="number" id="total-students-benefited" readonly>
+
+        <!-- User Input: Wheat Stock Details -->
+        <label for="opening-wheat">Opening Balance of Wheat (kg):</label>
+        <input type="number" id="opening-wheat" placeholder="Enter opening balance">
+
+        <label for="new-wheat">New Stock of Wheat Received (kg):</label>
+        <input type="number" id="new-wheat" placeholder="Enter new stock received">
+
+        <!-- Auto-calculated: Wheat Consumed & Closing Balance -->
+        <label for="wheat-consumed">Wheat Consumed in Month (kg):</label>
+        <input type="number" id="wheat-consumed" readonly>
+
+        <label for="closing-wheat">Closing Balance of Wheat (kg):</label>
+        <input type="number" id="closing-wheat" readonly>
+
+        <!-- User Input: Rice Stock Details -->
+        <label for="opening-rice">Opening Balance of Rice (kg):</label>
+        <input type="number" id="opening-rice" placeholder="Enter opening balance">
+
+        <label for="new-rice">New Stock of Rice Received (kg):</label>
+        <input type="number" id="new-rice" placeholder="Enter new stock received">
+
+        <!-- Auto-calculated: Rice Consumed & Closing Balance -->
+        <label for="rice-consumed">Rice Consumed in Month (kg):</label>
+        <input type="number" id="rice-consumed" readonly>
+
+        <label for="closing-rice">Closing Balance of Rice (kg):</label>
+        <input type="number" id="closing-rice" readonly>
+
+    </div>
+
+    <script>
+        // Get values from Part 1
+        function updateMDMDays() {
+            let wheatDays = parseFloat(document.getElementById("days-wheat").value) || 0;
+            let riceDays = parseFloat(document.getElementById("days-rice").value) || 0;
+            document.getElementById("total-mdm-days").value = wheatDays + riceDays;
+        }
+
+        function updateTotalStudents() {
+            let wheatStudents = parseFloat(document.getElementById("students-wheat").value) || 0;
+            let riceStudents = parseFloat(document.getElementById("students-rice").value) || 0;
+            document.getElementById("total-students-benefited").value = wheatStudents + riceStudents;
+        }
+
+        function updateWheatStock() {
+            let wheatConsumed = (parseFloat(document.getElementById("students-wheat").value) || 0) * 0.1;
+            document.getElementById("wheat-consumed").value = wheatConsumed.toFixed(2);
+
+            let openingWheat = parseFloat(document.getElementById("opening-wheat").value) || 0;
+            let newWheat = parseFloat(document.getElementById("new-wheat").value) || 0;
+            document.getElementById("closing-wheat").value = (openingWheat + newWheat - wheatConsumed).toFixed(2);
+        }
+
+        function updateRiceStock() {
+            let riceConsumed = (parseFloat(document.getElementById("students-rice").value) || 0) * 0.1;
+            document.getElementById("rice-consumed").value = riceConsumed.toFixed(2);
+
+            let openingRice = parseFloat(document.getElementById("opening-rice").value) || 0;
+            let newRice = parseFloat(document.getElementById("new-rice").value) || 0;
+            document.getElementById("closing-rice").value = (openingRice + newRice - riceConsumed).toFixed(2);
+        }
+
+        document.getElementById("students-wheat").addEventListener("input", () => {
+            updateTotalStudents();
+            updateWheatStock();
+        });
+
+        document.getElementById("students-rice").addEventListener("input", () => {
+            updateTotalStudents();
+            updateRiceStock();
+        });
+
+        document.getElementById("opening-wheat").addEventListener("input", updateWheatStock);
+        document.getElementById("new-wheat").addEventListener("input", updateWheatStock);
+        document.getElementById("opening-rice").addEventListener("input", updateRiceStock);
+        document.getElementById("new-rice").addEventListener("input", updateRiceStock);
+    </script>
+
+</body>
+</html>
