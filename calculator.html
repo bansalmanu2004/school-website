@@ -7,9 +7,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
             margin: 0;
             padding: 0;
-            background-color: #e3f2fd;
         }
         .navbar {
             background-color: #0288d1;
@@ -20,13 +20,6 @@
             font-weight: bold;
             font-size: 18px;
         }
-        .blinking {
-            animation: blink 1s infinite alternate;
-        }
-        @keyframes blink {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -34,6 +27,12 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .form-step {
+            display: none;
+        }
+        .active {
+            display: block;
         }
         label {
             font-weight: bold;
@@ -47,12 +46,8 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
         button {
+            margin-top: 15px;
             padding: 10px;
             background: #0288d1;
             color: white;
@@ -63,111 +58,89 @@
         button:hover {
             background: #0277bd;
         }
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <span class="blinking">School Name</span>
-        <span class="blinking">Manoj Bansal - 9888666363</span>
+        <span>School Name</span>
+        <span>MDM Report</span>
     </div>
 
     <div class="container">
         <h2>MDM Monthly Report Calculator</h2>
         
-        <!-- Step 1 -->
-        <div id="step1">
-            <label for="year">Select Year:</label>
-            <select id="year"> 
-                <option>2025</option>
-                <option>2026</option>
-                <option>2027</option>
-                <option>2028</option>
-                <option>2029</option>
-                <option>2030</option>
-            </select>
-            
-            <label for="month">Select Month:</label>
-            <select id="month">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
-            </select>
-            
-            <label for="reportType">Select Report Type:</label>
-            <select id="reportType">
-                <option>Pre-Primary MDM Report</option>
-                <option>Primary MDM Report</option>
-            </select>
-            
-            <label for="dateTime">Current Date and Time:</label>
-            <input type="text" id="dateTime" readonly>
-            
-            <label for="schoolName">School Name:</label>
-            <input type="text" id="schoolName" required>
-            
-            <label for="udise">School UDISE Code:</label>
-            <input type="text" id="udise" required>
-            
-            <label for="cookingCost">Price/Rate of Cooking Cost per Student (Rs):</label>
-            <input type="number" id="cookingCost" required>
-            
-            <label for="totalStudents">Total Students:</label>
-            <input type="number" id="totalStudents" required>
-
-            <div class="button-container">
+        <form id="mdmForm">
+            <div class="form-step active" id="step1">
+                <label>Select Year:</label>
+                <select id="year"> 
+                    <option>2025</option>
+                    <option>2026</option>
+                    <option>2027</option>
+                    <option>2028</option>
+                    <option>2029</option>
+                    <option>2030</option>
+                </select>
+                <label>Select Month:</label>
+                <select id="month">
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
+                <label>Report Type:</label>
+                <select id="reportType">
+                    <option>Pre-Primary MDM Report</option>
+                    <option>Primary MDM Report</option>
+                </select>
+                <label>Current Date and Time:</label>
+                <input type="text" id="dateTime" readonly>
+                <label>School Name:</label>
+                <input type="text" id="schoolName" required>
+                <label>School UDISE Code:</label>
+                <input type="text" id="udise" required>
+                <label>Price/Rate of Cooking Cost per Student (Rs):</label>
+                <input type="number" id="cookingCost" required>
+                <label>Total Students:</label>
+                <input type="number" id="totalStudents" required>
                 <button type="button" onclick="nextStep(1)">Next</button>
             </div>
-        </div>
 
-        <!-- Step 2 -->
-        <div id="step2" class="hidden">
-            <label for="daysWheat">Number of Days Wheat Served:</label>
-            <input type="number" id="daysWheat" required>
-            
-            <label for="daysRice">Number of Days Rice Served:</label>
-            <input type="number" id="daysRice" required>
-            
-            <label for="mdmDays">Total Number of Days MDM Served:</label>
-            <input type="number" id="mdmDays" readonly>
-            
-            <label for="studentsWheat">Total Students Served Wheat in Month:</label>
-            <input type="number" id="studentsWheat" required>
-            
-            <label for="studentsRice">Total Students Served Rice in Month:</label>
-            <input type="number" id="studentsRice" required>
-            
-            <label for="studentsBenefited">Total Students Benefited:</label>
-            <input type="number" id="studentsBenefited" readonly>
-            
-            <label for="wheatOpening">Opening Balance of Wheat:</label>
-            <input type="number" id="wheatOpening" required>
-            
-            <label for="wheatReceived">New Stock of Wheat Received:</label>
-            <input type="number" id="wheatReceived" required>
-            
-            <label for="wheatConsumed">Wheat Consumed in Month:</label>
-            <input type="number" id="wheatConsumed" readonly>
-            
-            <label for="wheatClosing">Closing Balance of Wheat:</label>
-            <input type="number" id="wheatClosing" readonly>
-            
-            <div class="button-container">
+            <div class="form-step" id="step2">
+                <label>Number of Days Wheat Served:</label>
+                <input type="number" id="daysWheat" required>
+                <label>Number of Days Rice Served:</label>
+                <input type="number" id="daysRice" required>
                 <button type="button" onclick="prevStep(2)">Previous</button>
                 <button type="button" onclick="nextStep(2)">Next</button>
             </div>
-        </div>
+
+            <div class="form-step" id="step3">
+                <label>Opening Balance of Rice:</label>
+                <input type="number" id="riceOpening" required>
+                <label>New Stock of Rice Received:</label>
+                <input type="number" id="riceReceived" required>
+                <button type="button" onclick="prevStep(3)">Previous</button>
+                <button type="button" onclick="nextStep(3)">Next</button>
+            </div>
+
+            <div class="form-step" id="step4">
+                <label>Opening Balance of Fruit:</label>
+                <input type="number" id="fruitOpening" required>
+                <label>Amount Received:</label>
+                <input type="number" id="fruitReceived" required>
+                <button type="button" onclick="prevStep(4)">Previous</button>
+                <button type="button" onclick="calculate()">Calculate</button>
+                <button type="button" onclick="downloadPDF()">Download PDF</button>
+            </div>
+        </form>
     </div>
 
     <script>
@@ -175,14 +148,24 @@
             document.getElementById("dateTime").value = new Date().toLocaleString();
         });
 
+        let currentStep = 1;
+
         function nextStep(step) {
-            document.getElementById("step" + step).classList.add("hidden");
-            document.getElementById("step" + (step + 1)).classList.remove("hidden");
+            document.getElementById("step" + step).classList.remove("active");
+            document.getElementById("step" + (step + 1)).classList.add("active");
         }
 
         function prevStep(step) {
-            document.getElementById("step" + step).classList.add("hidden");
-            document.getElementById("step" + (step - 1)).classList.remove("hidden");
+            document.getElementById("step" + step).classList.remove("active");
+            document.getElementById("step" + (step - 1)).classList.add("active");
+        }
+
+        function calculate() {
+            alert("Calculations Completed!");
+        }
+
+        function downloadPDF() {
+            alert("Downloading PDF...");
         }
     </script>
 </body>
