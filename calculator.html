@@ -319,3 +319,56 @@
         doc.save("MDM_Monthly_Report.pdf");
     }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+    function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+        doc.setFont("times");
+        doc.setFontSize(12);
+
+        let y = 20; // Initial vertical position
+
+        doc.text("MDM Monthly Report", 105, y, { align: "center" });
+        y += 10;
+
+        // Table Headers
+        const headers = [
+            ["Field Name", "Value"]
+        ];
+
+        // Get all input fields
+        const fields = document.querySelectorAll("input, select");
+
+        // Table Data
+        const data = [];
+        fields.forEach(field => {
+            if (field.id && field.value) {
+                data.push([field.previousElementSibling.innerText, field.value]);
+            }
+        });
+
+        doc.autoTable({
+            startY: y,
+            head: headers,
+            body: data,
+            theme: "grid",
+            styles: {
+                font: "times",
+                fontSize: 12,
+                halign: "justify",
+            },
+            headStyles: {
+                fillColor: [200, 200, 200],
+                textColor: 0,
+                fontStyle: "bold"
+            },
+            margin: { top: 30 }
+        });
+
+        doc.save("MDM_Monthly_Report.pdf");
+    }
+</script>
+
+<button onclick="downloadPDF()">Download PDF</button>
