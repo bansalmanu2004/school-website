@@ -36,7 +36,7 @@
         }
         .container {
             max-width: 600px;
-            margin: 80px auto;
+            margin: 50px auto;
             background: rgba(255, 255, 255, 0.85);
             padding: 30px;
             border-radius: 10px;
@@ -69,6 +69,24 @@
         .footer p {
             margin: 5px 0;
         }
+        .gallery {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gallery img {
+            width: 180px;
+            height: 120px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+            transition: 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -96,6 +114,14 @@
 
             <p>Guidance By: <strong>CHT Sh. Surinder Kumar Vig</strong></p>
         </div>
+    </div>
+
+    <!-- Image Gallery Section -->
+    <div class="gallery">
+        <img src="https://source.unsplash.com/300x200/?students,school" alt="School Image 1">
+        <img src="https://source.unsplash.com/300x200/?classroom,learning" alt="School Image 2">
+        <img src="https://source.unsplash.com/300x200/?education,children" alt="School Image 3">
+        <img src="https://source.unsplash.com/300x200/?teacher,students" alt="School Image 4">
     </div>
 
 </body>
