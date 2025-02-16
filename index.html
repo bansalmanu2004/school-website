@@ -3,80 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Website</title>
+    <title>Home - GPS Shahkot Boys</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            background: url('https://source.unsplash.com/1600x900/?school,education') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
         }
         .navbar {
-            background-color: #0288d1;
+            background: rgba(0, 51, 102, 0.9);
             padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar-left {
+            font-size: 22px;
             font-weight: bold;
-            font-size: 18px;
+            color: yellow;
+            animation: blink 1s infinite;
         }
-        .menu {
-            display: flex;
-            gap: 15px;
+        .navbar-right {
+            font-size: 16px;
+            font-weight: bold;
+            color: lightblue;
+            animation: blink 1s infinite;
         }
-        .menu a {
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .nav-links a {
             color: white;
             text-decoration: none;
+            font-size: 18px;
+            margin: 0 10px;
             padding: 10px;
+            transition: 0.3s;
         }
-        .dropdown {
-            position: relative;
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .school-name {
+            font-size: 28px;
+            font-weight: bold;
+            background: yellow;
+            color: #003366;
+            padding: 10px 20px;
             display: inline-block;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            animation: highlight 1s infinite alternate;
         }
-        .dropdown-content {
+        @keyframes highlight {
+            0% { background: yellow; color: #003366; }
+            100% { background: orange; color: white; }
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .slide {
             display: none;
-            position: absolute;
-            background-color: #fff;
-            min-width: 200px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-            z-index: 1;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
         }
-        .dropdown-content a {
-            color: black;
-            padding: 10px;
+        .active {
             display: block;
-            text-decoration: none;
         }
-        .dropdown:hover .dropdown-content {
-            display: block;
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+        h1 {
+            color: #003366;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .info {
+            font-size: 18px;
+            color: #444;
+            margin: 5px 0;
+        }
+        .divider {
+            width: 60px;
+            height: 4px;
+            background-color: #003366;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+        }
+        .footer p {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
+
+    <!-- Navigation Bar -->
     <div class="navbar">
-        <div>School Name</div>
-        <div class="menu">
+        <div class="navbar-left">GPS Shahkot Boys</div>
+        <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="about.html">About Us</a>
             <a href="admissions.html">Admissions</a>
             <a href="gallery.html">Gallery</a>
-            <div class="dropdown">
-                <a href="#">Calculator</a>
-                <div class="dropdown-content">
-                    <a href="general-details.html">General Details</a>
-                    <a href="students-details.html">Students Details</a>
-                    <a href="wheat-section.html">Wheat Section</a>
-                    <a href="rice-section.html">Rice Section</a>
-                    <a href="cooking-cost-section.html">Cooking-Cost Section</a>
-                    <a href="fruit-section.html">Fruit Section</a>
-                </div>
-            </div>
+            <a href="calculator.html">Calculator</a>
+        </div>
+        <div class="navbar-right">Manoj Bansal | 9888666363</div>
+    </div>
+
+    <!-- School Name Below Navbar -->
+    <div class="school-name">GPS Shahkot Boys</div>
+
+    <!-- Slideshow Section -->
+    <div class="slideshow-container">
+        <img class="slide active" src="https://source.unsplash.com/1200x400/?students,school" alt="School Image 1">
+        <img class="slide" src="https://source.unsplash.com/1200x400/?classroom,learning" alt="School Image 2">
+        <img class="slide" src="https://source.unsplash.com/1200x400/?education,children" alt="School Image 3">
+        <img class="slide" src="https://source.unsplash.com/1200x400/?teacher,students" alt="School Image 4">
+    </div>
+
+    <div class="container">
+        <h1>GPS Shahkot Boys</h1>
+        <p class="info">Tehsil - Shahkot (144702)</p>
+        <p class="info">Block - Shahkot-1</p>
+        <p class="info">District - Jalandhar</p>
+
+        <div class="divider"></div>
+
+        <div class="footer">
+            <p>Built By: <strong>Manoj Bansal</strong></p>
+            <p>📞 9888666363</p>
+
+            <p>Guidance By: <strong>CHT Sh. Surinder Kumar Vig</strong></p>
         </div>
     </div>
-    <div style="padding: 20px;">
-        <h1>Welcome to Our School</h1>
-        <p>This is the homepage of our school website.</p>
-    </div>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".slide");
+
+        function showNextSlide() {
+            slides[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].classList.add("active");
+        }
+
+        setInterval(showNextSlide, 3000); // Change slide every 3 seconds
+    </script>
+
 </body>
 </html>
