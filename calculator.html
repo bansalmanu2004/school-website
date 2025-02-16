@@ -215,3 +215,41 @@
 
     updateCookingCostCalculations(); // Initial Calculation
 </script>
+<!-- Fruit Fields -->
+<label for="openingBalanceFruit">Opening Balance of Fruit (₹):</label>
+<input type="number" id="openingBalanceFruit">
+
+<label for="amountReceivedFruit">Amount Received for Fruit (₹):</label>
+<input type="number" id="amountReceivedFruit">
+
+<label for="studentsGivenFruit">Number of Students Given Fruit in Month:</label>
+<input type="number" id="studentsGivenFruit">
+
+<label for="amountSpentFruit">Amount Spent in Month (₹):</label>
+<input type="number" id="amountSpentFruit" class="readonly" readonly>
+
+<label for="closingBalanceFruit">Closing Balance of Fruit (₹):</label>
+<input type="number" id="closingBalanceFruit" class="readonly" readonly>
+
+<script>
+    function updateFruitCalculations() {
+        let openingBalanceFruit = parseFloat(document.getElementById("openingBalanceFruit").value) || 0;
+        let amountReceivedFruit = parseFloat(document.getElementById("amountReceivedFruit").value) || 0;
+        let studentsGivenFruit = parseFloat(document.getElementById("studentsGivenFruit").value) || 0;
+
+        // Amount Spent in Month = Students Given Fruit * 5
+        let amountSpentFruit = studentsGivenFruit * 5;
+        document.getElementById("amountSpentFruit").value = amountSpentFruit.toFixed(2);
+
+        // Closing Balance = Opening Balance + Received Amount - Spent Amount
+        let closingBalanceFruit = openingBalanceFruit + amountReceivedFruit - amountSpentFruit;
+        document.getElementById("closingBalanceFruit").value = closingBalanceFruit.toFixed(2);
+    }
+
+    // Attach event listeners
+    document.getElementById("openingBalanceFruit").addEventListener("input", updateFruitCalculations);
+    document.getElementById("amountReceivedFruit").addEventListener("input", updateFruitCalculations);
+    document.getElementById("studentsGivenFruit").addEventListener("input", updateFruitCalculations);
+
+    updateFruitCalculations(); // Initial Calculation
+</script>
