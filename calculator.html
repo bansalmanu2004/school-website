@@ -5,284 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MDM Monthly Report Calculator</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
-        body { background: #f4f4f4; color: #333; text-align: center; }
-        .container { max-width: 800px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; }
-        label { font-weight: bold; display: block; margin-top: 10px; text-align: left; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            background: url('https://source.unsplash.com/1600x900/?school,education') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+        .navbar {
+            background: rgba(0, 51, 102, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar-left {
+            font-size: 22px;
+            font-weight: bold;
+            color: yellow;
+        }
+        .navbar-right {
+            font-size: 16px;
+            font-weight: bold;
+            color: lightblue;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 10px;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            color: #333;
+            text-align: left;
+        }
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="navbar-left">GPS Shahkot Boys</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="admissions.html">Admissions</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="calculator.html">Calculator</a>
+        </div>
+        <div class="navbar-right">Manoj Bansal | 9888666363</div>
+    </div>
+
     <div class="container">
         <h1>MDM Monthly Report Calculator</h1>
 
-        <label>Select Year:</label>
+        <!-- Year Selection -->
+        <label for="year">Select Year:</label>
         <select id="year">
-            <option>2025</option>
-            <option>2026</option>
-            <option>2027</option>
-            <option>2028</option>
-            <option>2029</option>
-            <option>2030</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
         </select>
 
-        <label>Select Month:</label>
+        <!-- Month Selection -->
+        <label for="month">Select Month:</label>
         <select id="month">
-            <option>January</option>
-            <option>February</option>
-            <option>March</option>
-            <option>April</option>
-            <option>May</option>
-            <option>June</option>
-            <option>July</option>
-            <option>August</option>
-            <option>September</option>
-            <option>October</option>
-            <option>November</option>
-            <option>December</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
         </select>
 
-        <label>MDM Report Type:</label>
-        <select id="reportType">
-            <option>Pre-Primary MDM Report</option>
-            <option>Primary MDM Report</option>
+        <!-- Report Type -->
+        <label for="report-type">Select Report Type:</label>
+        <select id="report-type">
+            <option value="Pre-Primary MDM Report">Pre-Primary MDM Report</option>
+            <option value="Primary MDM Report">Primary MDM Report</option>
         </select>
 
-        <label>Current Date & Time:</label>
-        <input type="text" id="currentDateTime" readonly>
+        <!-- Current Date and Time -->
+        <label for="date-time">Current Date & Time:</label>
+        <input type="text" id="date-time" readonly>
 
-        <label>School Name:</label>
-        <input type="text" id="schoolName">
+        <!-- School Details -->
+        <label for="school-name">School Name:</label>
+        <input type="text" id="school-name" placeholder="Enter School Name">
 
-        <label>School UDISE Code:</label>
-        <input type="text" id="schoolCode">
+        <label for="school-code">School UDISE Code:</label>
+        <input type="text" id="school-code" placeholder="Enter UDISE Code">
 
-        <label>Cooking Cost per Student (₹):</label>
-        <input type="number" id="cookingCost" step="0.01">
+        <!-- Cooking Cost -->
+        <label for="cooking-cost">Price/Rate of Cooking Cost per Student (₹):</label>
+        <input type="number" id="cooking-cost" placeholder="Enter Cooking Cost">
 
-        <label>Total Students:</label>
-        <input type="number" id="totalStudents">
+        <!-- Student Details -->
+        <label for="total-students">Total Students:</label>
+        <input type="number" id="total-students" placeholder="Enter Total Students">
 
-        <label>Number of Days Wheat Served:</label>
-        <input type="number" id="daysWheat">
+        <label for="days-wheat">Number of Days Wheat Served:</label>
+        <input type="number" id="days-wheat" placeholder="Enter Number of Days">
 
-        <label>Number of Days Rice Served:</label>
-        <input type="number" id="daysRice">
+        <label for="days-rice">Number of Days Rice Served:</label>
+        <input type="number" id="days-rice" placeholder="Enter Number of Days">
+
+        <label for="total-mdm-days">Total Number of Days MDM Served:</label>
+        <input type="number" id="total-mdm-days" readonly>
 
     </div>
 
+    <div class="footer">
+        <p>Built By: <strong>Manoj Bansal</strong></p>
+        <p>📞 9888666363</p>
+        <p>Guidance By: <strong>CHT Sh. Surinder Kumar Vig</strong></p>
+    </div>
+
     <script>
+        // Capture current date and time
         function updateDateTime() {
             const now = new Date();
-            document.getElementById("currentDateTime").value = now.toLocaleString();
+            document.getElementById("date-time").value = now.toLocaleString();
         }
         updateDateTime();
+
+        // Calculate total number of MDM days
+        function updateMDMDays() {
+            let wheatDays = parseFloat(document.getElementById("days-wheat").value) || 0;
+            let riceDays = parseFloat(document.getElementById("days-rice").value) || 0;
+            document.getElementById("total-mdm-days").value = wheatDays + riceDays;
+        }
+
+        document.getElementById("days-wheat").addEventListener("input", updateMDMDays);
+        document.getElementById("days-rice").addEventListener("input", updateMDMDays);
     </script>
 
 </body>
 </html>
-<div class="container">
-    <h2>Student & MDM Details</h2>
-
-    <label>Total Number of Days MDM Served:</label>
-    <input type="number" id="totalMDMDays" readonly>
-
-    <label>Total Students Served Wheat in Month:</label>
-    <input type="number" id="studentsWheat" oninput="calculateMDM()">
-
-    <label>Total Students Served Rice in Month:</label>
-    <input type="number" id="studentsRice" oninput="calculateMDM()">
-
-    <label>Total Students Benefited:</label>
-    <input type="number" id="totalBenefited" readonly>
-
-    <h2>Wheat Stock Details</h2>
-
-    <label>Opening Balance of Wheat (Kg):</label>
-    <input type="number" id="openingWheat">
-
-    <label>New Stock of Wheat Received (Kg):</label>
-    <input type="number" id="newWheat">
-
-    <label>Wheat Consumed in Month (Kg):</label>
-    <input type="number" id="wheatConsumed" readonly>
-
-    <label>Closing Balance of Wheat (Kg):</label>
-    <input type="number" id="closingWheat" readonly>
-
-    <h2>Rice Stock Details</h2>
-
-    <label>Opening Balance of Rice (Kg):</label>
-    <input type="number" id="openingRice">
-
-    <label>New Stock of Rice Received (Kg):</label>
-    <input type="number" id="newRice">
-
-    <label>Rice Consumed in Month (Kg):</label>
-    <input type="number" id="riceConsumed" readonly>
-
-    <label>Closing Balance of Rice (Kg):</label>
-    <input type="number" id="closingRice" readonly>
-</div>
-
-<script>
-    function calculateMDM() {
-        // Fetch values
-        let daysWheat = parseFloat(document.getElementById("daysWheat").value) || 0;
-        let daysRice = parseFloat(document.getElementById("daysRice").value) || 0;
-        let studentsWheat = parseFloat(document.getElementById("studentsWheat").value) || 0;
-        let studentsRice = parseFloat(document.getElementById("studentsRice").value) || 0;
-
-        // Calculate fields
-        document.getElementById("totalMDMDays").value = daysWheat + daysRice;
-        document.getElementById("totalBenefited").value = studentsWheat + studentsRice;
-
-        // Calculate Wheat Stock
-        let wheatConsumed = studentsWheat * 0.1;
-        document.getElementById("wheatConsumed").value = wheatConsumed.toFixed(2);
-
-        let openingWheat = parseFloat(document.getElementById("openingWheat").value) || 0;
-        let newWheat = parseFloat(document.getElementById("newWheat").value) || 0;
-        document.getElementById("closingWheat").value = (openingWheat + newWheat - wheatConsumed).toFixed(2);
-
-        // Calculate Rice Stock
-        let riceConsumed = studentsRice * 0.1;
-        document.getElementById("riceConsumed").value = riceConsumed.toFixed(2);
-
-        let openingRice = parseFloat(document.getElementById("openingRice").value) || 0;
-        let newRice = parseFloat(document.getElementById("newRice").value) || 0;
-        document.getElementById("closingRice").value = (openingRice + newRice - riceConsumed).toFixed(2);
-    }
-</script>
-<!-- Cooking-Cost Details -->
-<h2>Cooking-Cost Details</h2>
-
-<label>Opening Balance of Cooking-Cost (₹):</label>
-<input type="number" id="openingBalanceCooking" step="0.01" required>
-
-<label>Cooking-Cost Received (₹):</label>
-<input type="number" id="cookingCostReceived" step="0.01" required>
-
-<label>Cooking-Cost Spent in Month (₹):</label>
-<input type="text" id="cookingCostSpent" readonly>
-
-<label>Closing Balance of Cooking-Cost (₹):</label>
-<input type="text" id="closingBalanceCooking" readonly>
-
-<hr>
-
-<!-- Fruit Details -->
-<h2>Fruit Details</h2>
-
-<label>Opening Balance of Fruit (₹):</label>
-<input type="number" id="openingBalanceFruit" step="0.01" required>
-
-<label>Amount Received (₹):</label>
-<input type="number" id="amountReceivedFruit" step="0.01" required>
-
-<label>Number of Students Given Fruit in Month:</label>
-<input type="number" id="studentsGivenFruit" required>
-
-<label>Amount Spent in Month (₹):</label>
-<input type="text" id="amountSpentFruit" readonly>
-
-<label>Closing Balance of Fruit (₹):</label>
-<input type="text" id="closingBalanceFruit" readonly>
-
-<script>
-    function calculateCookingCost() {
-        let ratePerStudent = parseFloat(document.getElementById("cookingCostRate").value) || 0;
-        let totalStudentsBenefited = parseFloat(document.getElementById("totalStudentsBenefited").value) || 0;
-        let openingBalance = parseFloat(document.getElementById("openingBalanceCooking").value) || 0;
-        let received = parseFloat(document.getElementById("cookingCostReceived").value) || 0;
-
-        let spent = totalStudentsBenefited * ratePerStudent;
-        let closingBalance = openingBalance + received - spent;
-
-        document.getElementById("cookingCostSpent").value = spent.toFixed(2);
-        document.getElementById("closingBalanceCooking").value = closingBalance.toFixed(2);
-    }
-
-    function calculateFruitBalance() {
-        let openingBalance = parseFloat(document.getElementById("openingBalanceFruit").value) || 0;
-        let received = parseFloat(document.getElementById("amountReceivedFruit").value) || 0;
-        let studentsGiven = parseFloat(document.getElementById("studentsGivenFruit").value) || 0;
-
-        let spent = studentsGiven * 5;
-        let closingBalance = openingBalance + received - spent;
-
-        document.getElementById("amountSpentFruit").value = spent.toFixed(2);
-        document.getElementById("closingBalanceFruit").value = closingBalance.toFixed(2);
-    }
-
-    document.getElementById("openingBalanceCooking").addEventListener("input", calculateCookingCost);
-    document.getElementById("cookingCostReceived").addEventListener("input", calculateCookingCost);
-    document.getElementById("openingBalanceFruit").addEventListener("input", calculateFruitBalance);
-    document.getElementById("amountReceivedFruit").addEventListener("input", calculateFruitBalance);
-    document.getElementById("studentsGivenFruit").addEventListener("input", calculateFruitBalance);
-</script>
-<!-- Download Button -->
-<button id="downloadPDF">Download Report as PDF</button>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-    document.getElementById("downloadPDF").addEventListener("click", function () {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(18);
-        doc.text("MDM Monthly Report", 105, 15, null, null, "center");
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-        
-        let yPosition = 30;
-
-        function addField(label, value) {
-            doc.text(`${label}: ${value}`, 20, yPosition);
-            yPosition += 8;
-        }
-
-        // Fetching all input values
-        addField("Year", document.getElementById("year").value);
-        addField("Month", document.getElementById("month").value);
-        addField("Report Type", document.getElementById("reportType").value);
-        addField("Date & Time", new Date().toLocaleString());
-        addField("School Name", document.getElementById("schoolName").value);
-        addField("UDISE Code", document.getElementById("schoolCode").value);
-        addField("Price per Student (₹)", parseFloat(document.getElementById("cookingCostRate").value).toFixed(2));
-        addField("Total Students", document.getElementById("totalStudents").value);
-        addField("Days Wheat Served", document.getElementById("daysWheatServed").value);
-        addField("Days Rice Served", document.getElementById("daysRiceServed").value);
-        addField("Total Days MDM Served", document.getElementById("totalDaysServed").value);
-        addField("Students Served Wheat", document.getElementById("studentsServedWheat").value);
-        addField("Students Served Rice", document.getElementById("studentsServedRice").value);
-        addField("Total Students Benefited", document.getElementById("totalStudentsBenefited").value);
-        
-        addField("Opening Balance of Wheat (kg)", parseFloat(document.getElementById("openingBalanceWheat").value).toFixed(2));
-        addField("New Stock of Wheat Received (kg)", parseFloat(document.getElementById("stockReceivedWheat").value).toFixed(2));
-        addField("Wheat Consumed (kg)", parseFloat(document.getElementById("wheatConsumed").value).toFixed(2));
-        addField("Closing Balance of Wheat (kg)", parseFloat(document.getElementById("closingBalanceWheat").value).toFixed(2));
-
-        addField("Opening Balance of Rice (kg)", parseFloat(document.getElementById("openingBalanceRice").value).toFixed(2));
-        addField("New Stock of Rice Received (kg)", parseFloat(document.getElementById("stockReceivedRice").value).toFixed(2));
-        addField("Rice Consumed (kg)", parseFloat(document.getElementById("riceConsumed").value).toFixed(2));
-        addField("Closing Balance of Rice (kg)", parseFloat(document.getElementById("closingBalanceRice").value).toFixed(2));
-
-        addField("Opening Balance of Cooking-Cost (₹)", parseFloat(document.getElementById("openingBalanceCooking").value).toFixed(2));
-        addField("Cooking-Cost Received (₹)", parseFloat(document.getElementById("cookingCostReceived").value).toFixed(2));
-        addField("Cooking-Cost Spent (₹)", parseFloat(document.getElementById("cookingCostSpent").value).toFixed(2));
-        addField("Closing Balance of Cooking-Cost (₹)", parseFloat(document.getElementById("closingBalanceCooking").value).toFixed(2));
-
-        addField("Opening Balance of Fruit (₹)", parseFloat(document.getElementById("openingBalanceFruit").value).toFixed(2));
-        addField("Amount Received (₹)", parseFloat(document.getElementById("amountReceivedFruit").value).toFixed(2));
-        addField("Students Given Fruit", document.getElementById("studentsGivenFruit").value);
-        addField("Amount Spent on Fruit (₹)", parseFloat(document.getElementById("amountSpentFruit").value).toFixed(2));
-        addField("Closing Balance of Fruit (₹)", parseFloat(document.getElementById("closingBalanceFruit").value).toFixed(2));
-
-        // Save as PDF
-        doc.save("MDM_Monthly_Report.pdf");
-    });
-</script>
