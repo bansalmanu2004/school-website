@@ -253,3 +253,144 @@
 
     updateFruitCalculations(); // Initial Calculation
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM Monthly Report Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">MDM Report</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admissions.html">Admissions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="calculator.html">Calculator</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MDM Monthly Report Calculator -->
+    <div class="container mt-4">
+        <h2 class="text-center">MDM Monthly Report Calculator</h2>
+
+        <!-- Form for user input -->
+        <form id="mdmForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="schoolName" class="form-label">School Name:</label>
+                    <input type="text" class="form-control" id="schoolName" required>
+
+                    <label for="schoolCode" class="form-label">School UDISE Code:</label>
+                    <input type="text" class="form-control" id="schoolCode" required>
+
+                    <label for="cookingCost" class="form-label">Price/Rate of Cooking Cost (₹):</label>
+                    <input type="number" class="form-control" id="cookingCost" required>
+
+                    <label for="totalStudents" class="form-label">Total Students:</label>
+                    <input type="number" class="form-control" id="totalStudents" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="openingFruit" class="form-label">Opening Balance of Fruit:</label>
+                    <input type="number" class="form-control" id="openingFruit" required>
+
+                    <label for="amountReceived" class="form-label">Amount Received:</label>
+                    <input type="number" class="form-control" id="amountReceived" required>
+
+                    <label for="studentsGivenFruit" class="form-label">Number of Students Given Fruit:</label>
+                    <input type="number" class="form-control" id="studentsGivenFruit" required>
+
+                    <label for="amountSpent" class="form-label">Amount Spent in Month:</label>
+                    <input type="number" class="form-control" id="amountSpent" readonly>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-success mt-3" onclick="calculateValues()">Calculate</button>
+        </form>
+
+        <!-- Download Buttons -->
+        <div class="text-center mt-4">
+            <button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
+            <button class="btn btn-secondary" onclick="downloadExcel()">Download Excel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+// Function to calculate values
+function calculateValues() {
+    let studentsGivenFruit = parseFloat(document.getElementById("studentsGivenFruit").value) || 0;
+    let amountSpent = studentsGivenFruit * 5; // Amount Spent in Month
+    document.getElementById("amountSpent").value = amountSpent.toFixed(2);
+}
+
+// Function to download Excel file
+function downloadExcel() {
+    let tableData = [
+        ["Field", "Value"],
+        ["School Name", document.getElementById("schoolName").value],
+        ["School UDISE Code", document.getElementById("schoolCode").value],
+        ["Price/Rate of Cooking Cost", document.getElementById("cookingCost").value],
+        ["Total Students", document.getElementById("totalStudents").value],
+        ["Opening Balance of Fruit", document.getElementById("openingFruit").value],
+        ["Amount Received", document.getElementById("amountReceived").value],
+        ["Number of Students Given Fruit", document.getElementById("studentsGivenFruit").value],
+        ["Amount Spent in Month", document.getElementById("amountSpent").value]
+    ];
+
+    let ws = XLSX.utils.aoa_to_sheet(tableData);
+    let wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "MDM Report");
+    XLSX.writeFile(wb, "MDM_Monthly_Report.xlsx");
+}
+
+// Function to download PDF
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    let doc = new jsPDF();
+    
+    doc.setFillColor(240, 240, 240);
+    doc.rect(10, 10, 190, 280, 'F');
+
+    doc.setFontSize(18);
+    doc.setTextColor(0, 51, 153);
+    doc.text("MDM Monthly Report", 65, 20);
+
+    let data = [
+        ["School Name:", document.getElementById("schoolName").value],
+        ["School UDISE Code:", document.getElementById("schoolCode").value],
+        ["Price/Rate of Cooking Cost:", document.getElementById("cookingCost").value],
+        ["Total Students:", document.getElementById("totalStudents").value],
+        ["Opening Balance of Fruit:", document.getElementById("openingFruit").value],
+        ["Amount Received:", document.getElementById("amountReceived").value],
+        ["Students Given Fruit:", document.getElementById("studentsGivenFruit").value],
+        ["Amount Spent:", document.getElementById("amountSpent").value]
+    ];
+
+    let y = 40;
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    
+    data.forEach(([key, value]) => {
+        doc.text(`${key} ${value}`, 20, y);
+        y += 10;
+    });
+
+    doc.save("MDM_Monthly_Report.pdf");
+}
