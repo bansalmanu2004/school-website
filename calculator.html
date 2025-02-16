@@ -3,69 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MDM Monthly Report Calculator</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <title>About Us - GPS Shahkot Boys</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            background: url('https://source.unsplash.com/1600x900/?education,classroom') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+        }
+        .navbar {
+            background: rgba(0, 51, 102, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar-left {
+            font-size: 22px;
+            font-weight: bold;
+            color: yellow;
+            animation: blink 1s infinite;
+        }
+        .navbar-right {
+            font-size: 16px;
+            font-weight: bold;
+            color: lightblue;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 10px;
+            padding: 10px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+        .school-name {
+            font-size: 28px;
+            font-weight: bold;
+            background: yellow;
+            color: #003366;
+            padding: 10px 20px;
+            display: inline-block;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            animation: highlight 1s infinite alternate;
+        }
+        @keyframes highlight {
+            0% { background: yellow; color: #003366; }
+            100% { background: orange; color: white; }
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            color: #333;
+            text-align: left;
+        }
+        h1 {
+            color: #003366;
+            font-size: 32px;
+            text-align: center;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #444;
+            margin-top: 15px;
+        }
+        .divider {
+            width: 60px;
+            height: 4px;
+            background-color: #003366;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+    </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">School Name</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="admissions.html">Admissions</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="calculator.html" class="active">Calculator</a></li>
-            </ul>
+    <div class="navbar">
+        <div class="navbar-left">GPS Shahkot Boys</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="admissions.html">Admissions</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="calculator.html">Calculator</a>
         </div>
-    </nav>
+        <div class="navbar-right">Manoj Bansal | 9888666363</div>
+    </div>
 
-    <!-- Header Section -->
-    <header class="page-header">
-        <div class="container">
-            <h1>MDM Monthly Report Calculator</h1>
-            <p>Calculate and generate monthly reports for Mid-Day Meals.</p>
-        </div>
-    </header>
+    <!-- School Name Below Navbar -->
+    <div class="school-name">GPS Shahkot Boys</div>
 
-    <!-- Calculator Form Section -->
-    <section class="calculator-section">
-        <div class="container">
-            <form id="calculator-form">
-                <h2>MDM Report Inputs</h2>
-                <p>Please fill in the required details to generate the report.</p>
+    <!-- About Us Section -->
+    <div class="container">
+        <h1>About Us</h1>
+        <div class="divider"></div>
+        <p>
+            GPS Shahkot Boys is a prestigious school dedicated to providing quality education 
+            to students in Tehsil Shahkot, Block Shahkot-1, District Jalandhar. Our mission is 
+            to nurture young minds, fostering academic excellence and personal growth.
+        </p>
+        <p>
+            Our school is equipped with modern facilities, experienced faculty, and a curriculum 
+            that ensures holistic development. We believe in creating an environment where students 
+            can explore their potential and excel in various fields.
+        </p>
+        <p>
+            With the guidance of our dedicated teachers and the support of parents, GPS Shahkot Boys 
+            continues to achieve remarkable success in both academics and extracurricular activities.
+        </p>
+    </div>
 
-                <!-- Form Fields (Will be populated in parts) -->
-                <div id="form-content">
-                    <!-- The calculator fields will be inserted here dynamically -->
-                </div>
-
-                <!-- Buttons to Proceed Through Parts -->
-                <div class="button-group">
-                    <button type="button" id="prev-btn" disabled>Previous</button>
-                    <button type="button" id="next-btn">Next</button>
-                </div>
-
-                <!-- Download Buttons (Initially Hidden) -->
-                <div class="download-buttons" style="display: none;">
-                    <button type="button" id="download-pdf">Download PDF</button>
-                    <button type="button" id="download-excel">Download Excel</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 School Name. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript Files -->
-    <script src="script.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
 <!DOCTYPE html>
